@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="fastRequestCurrentProjectConfig">
+    <option name="domain" value="localhost:5277" />
+    <option name="enableEnv" value="测试" />
+    <option name="enableProject" value="lesson-user-background" />
+  </component>
+</project>

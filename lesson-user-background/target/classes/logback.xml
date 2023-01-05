@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <!--定义通用日志格式模板，取名为COMMON_PATTERN-->
+    <property name="COMMON_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS}| %-5p| %4.15(%t)| %c{1}.%M:%L| %msg%n"/>
+
+    <!--定义日志文件：相对位置从父项目开始，支持使用绝对路径-->
+    <property name="LOG_FILE" value="log/lesson-user-background.log"/>
+
+    <!--定义日志文件滚动格式-->
+    <property name="ROLLING_LOG_FILE" value="log/lesson-user-background.%d.%i.log"/>
+
+    <!--此Appender会将日志输出在控制台-->
+    <!--STDOUT意为标准输出-->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--配置日志格式和编码-->
+        <encoder>
+            <pattern>${COMMON_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!--此Appender会将日志输出到指定文件中-->
+    <appender name="FILEOUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+
+        <!--配置日志格式和编码-->
+        <encoder>
+            <pattern>${COMMON_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+
+        <!--配置日志文件位置-->
+        <file>${LOG_FILE}</file>
+
+        <!--过滤器：过滤掉info，此处只为测试过滤器-->
+        <!--日志信息等级为info级别时阻止，不为info时放行-->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>DENY</onMatch>
+            <onMismatch>ACCEPT</onMismatch>
+        </filter>
+
+        <!--滚动策略-->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+
+            <!--日志文件拆分名模板-->
+            <!--
+                - 日期变化时，对 `%d` 进行滚动：
+                - 先将昨天的日志文件重命名为 `lesson.昨天.0.log`
+                - 然后创建新的日志文件 `lesson.log` 用于记录今天的日志
+            -->
+            <!--
+                - 单个日志文件超出最大值时，对 `%i` 进行滚动：
+                - 先将当前的日志文件重命名为 `lesson.今天.0.log`
+                - 若 `lesson.今天.0.log` 已存在，则创建 `lesson.今天.1.log`，依此类推
+                - 然后创建新的日志文件 `lesson.log` 用于记录后续的日志
+            -->
+            <fileNamePattern>${ROLLING_LOG_FILE}</fileNamePattern>
+
+            <!--日志文件最长时效，单位根据日志文件拆分名自动识别，超时立刻删除多余日志-->
+            <maxHistory>30</maxHistory>
+
+            <!--全部日志文件最大值，如100MB，超出100MB则立刻删除多余日志-->
+            <totalSizeCap>100MB</totalSizeCap>
+
+            <!--每个日志文件拆分阈值，默认10MB，表示日志文件超过10M则立刻切分-->
+            <!--此处可设置为2KB以测试滚动效果-->
+            <maxFileSize>10MB</maxFileSize>
+
+        </rollingPolicy>
+
+    </appender>
+
+    <!--运行时日志记录器：仅对指定包中的运行时日志进行记录-->
+    <!--最低级别为info，不区分大小写-->
+    <logger name="com.cindy" level="info">
+        <appender-ref ref="FILEOUT"/>
+    </logger>
+
+    <!--根日志记录器：对全局的启动日志和运行时日志进行记录-->
+    <!--最低级别为info，不区分大小写-->
+    <!--根记录器建议放在最后-->
+    <root level="info">
+        <appender-ref ref="STDOUT"/>
+    </root>
+
+</configuration>
