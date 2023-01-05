@@ -17,6 +17,7 @@ baseAxios.interceptors.request.use(req => {
     return req;
 }, err => Promise.reject(err))
 
+
 // 设置Axios响应拦截器：在接收到响应之后执行
 // 正常执行req函数，异常执行err函数
 baseAxios.interceptors.response.use(resp => {
@@ -133,12 +134,3 @@ export const CART_DELETE_BY_USER_ID_AND_VIDEO_IDS = (params) => baseAxios.post(
 export const CART_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
     "/cart/select-by-user-id",
     {params: {"user-id": userId}});
-
-
-
-
-
-
-
-
-
