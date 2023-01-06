@@ -124,9 +124,6 @@ let pageVideo = async (page, size) => {
     if (resp['data']['code'] > 0) {
       let data = resp['data']['data'];
       videos.value = data['videos'];
-      videoPageInfo['page-size'] = data['page-size'];
-      videoPageInfo['total'] = data['total'];
-      videoPageInfo['page-num'] = data['page-num'];
     }
   } catch (e) {
     console.error(e);
@@ -163,7 +160,7 @@ let clearSearchVideo = () => {
 };
 
 // mounted: 页面加载完毕后，立刻调用 `pageVideo()` 方法
-onMounted(() => pageVideo(1, videoPageInfo['page-size']));
+onMounted(() => pageVideo(1, 6));
 
 </script>
 
