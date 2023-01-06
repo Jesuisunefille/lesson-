@@ -181,8 +181,8 @@ onMounted(() => pageVideo(1, 6));
 
   /*视频封面图片*/
   .cover-image {
-    width: 90%; // 宽度
-    height: 70%; // 高度
+    width: 300px; // 宽度
+    height: 200px; // 高度
     margin: 5px; // 外边距
     border: 5px solid black; // 边框
     border-radius: 5px; // 圆角
