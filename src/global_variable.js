@@ -19,7 +19,7 @@ export const ossUserAvatar = `${ossHost}/user-avatar/`;
 export const nginxBanner = `${resNginxHost}/banner/`;
 
 // Nginx视频封面图代理地址
-export const nginxVideoCover = `${resNginxHost}/video-cover/`;
+export const nginxCoverImage = `${resNginxHost}/cover-image/`;
 
 // Nginx视频摘要图代理地址
 export const nginxVideoSummary = `${resNginxHost}/video-summary/`;

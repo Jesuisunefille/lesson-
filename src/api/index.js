@@ -1,9 +1,9 @@
 import axios from 'axios'
-import {backgroundHost} from '@/global_variable'
+import {lessonUserBackgroundHost} from '@/global_variable'
 
 // 创建Axios实例：配置Axios请求前缀和超时时间
 const baseAxios = axios.create({
-    baseURL: `${backgroundHost}/api/v1`,
+    baseURL: `${lessonUserBackgroundHost}/api/v1`,
     timeout: 5000
 })
 
