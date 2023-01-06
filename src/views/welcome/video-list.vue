@@ -4,7 +4,7 @@
 
     <!--搜索视频表单-->
     <!--
-      ref="searchFormRef"：表单名称
+      ref="searchForm"：表单名称，校验的时候使用
       :inline="true"：行内表单模式
       :model="searchForm"：绑定表单数据对象
       :rules="searchRule"：绑定表单验证规则
@@ -13,15 +13,43 @@
              :inline="true"
              :model="searchFormData"
              :rules="searchFormRule">
-      <!--model的key值，若表单需要进行校验，则必须设置该值-->
+
+      <!--存放单行文本框的表单项-->
+      <!--
+        prop="title"：若该表单项需要校验，则必须使用设置prop属性
+      -->
       <el-form-item prop="title">
-        <el-input type="text" v-model="searchFormData['title']"
+
+        <!--单行文本框控件-->
+        <!--
+          v-model="searchFormData['title']"：双向绑定表单数据中title值
+          placeholder="请输入视频标题进行搜索.."：背景提示字
+        -->
+        <el-input type="text"
+                  v-model="searchFormData['title']"
                   placeholder="请输入视频标题进行搜索.."/>
+
       </el-form-item>
+
+      <!--存放按钮的表单项-->
       <el-form-item>
+
+        <!--搜索按钮-->
+        <!--
+          type="primary"：蓝色
+          @click="searchVideo"：点击该按钮时触发searchVideo方法
+        -->
         <el-button type="primary" @click="searchVideo">搜索视频</el-button>
+
+        <!--清空搜索-->
+        <!--
+          type="danger"：红色
+          @click="clearSearchVideo"：点击该按钮时触发clearSearchVideo方法
+        -->
         <el-button type="danger" @click="clearSearchVideo">清空搜索</el-button>
+
       </el-form-item>
+
     </el-form>
 
   </header>
@@ -84,25 +112,25 @@
 
   <footer class="video-list-footer">
 
-    <!--大屏幕时展示此容器-->
-    <div class="hidden-xs-only">
+    <!--大屏幕时展示此容器：当视口在xs尺寸时隐藏-->
+    <article class="hidden-xs-only">
 
       <!--分页按钮-->
       <!--
         background：为分页按钮添加背景色
-        layout="total, sizes, prev, pager, next, jumper"：
-            total  布局一共多少条数据
-            sizes  布局每页显示多少条数据
-            prev   布局上一页按钮
-            pager  布局数字列表
-            next   布局下一页按钮
-            jumper 布局跳转按钮
-        :total="videoPageInfo['total']"：绑定 "一共多少条数据" 的真实数据
-        :page-sizes="[2, 6, 8]"："每页显示多少条" 的可选值
-        :page-size="videoPageInfo['page-size']"：绑定 "每页显示多少条" 的真实数据
-        :current-page="videoPageInfo['page-num']"：绑定 "当前显示第几页" 的真实数据
-        @current-change="changePage"：当 "当前显示第几页" 发生改变时触发 `changePage` 方法
-        @size-change="changeSize"：当 "每页显示多少条" 发生改变时触发 `changeSize` 方法
+        layout="total, sizes, prev, pager, next, jumper"：组件布局，子组件名用逗号分隔：
+            total  总条目数
+            sizes  每页显示个数选择器
+            prev   上一页按钮
+            pager  数字列表
+            next   下一页按钮
+            jumper 跳转到指定页
+        :total="videoPageInfo['total']"：绑定总条目数
+        :page-sizes="[2, 6, 8]"：每页显示个数选择器的选项设置
+        :page-size="videoPageInfo['page-size']"：绑定每页显示条目个数
+        :current-page="videoPageInfo['page-num']"：绑定当前页数
+        @current-change="changePage"：当前页数发生改变时触发 `changePage` 方法
+        @size-change="changeSize"：每页显示条目个数发生改变时触发 `changeSize` 方法
       -->
       <el-pagination background layout="total, sizes, prev, pager, next, jumper"
                      :total="videoPageInfo['total']"
@@ -112,23 +140,23 @@
                      @current-change="changePage"
                      @size-change="changeSize"/>
 
-    </div>
+    </article>
 
-    <!--小屏幕时展示此容器-->
-    <div class="hidden-sm-and-up">
+    <!--小屏幕时展示此容器：当视口在sm及以上尺寸时隐藏-->
+    <article class="hidden-sm-and-up">
 
       <!--分页按钮-->
       <!--
         background：为分页按钮添加背景色
-        layout=",prev, pager, next"：
-            prev   布局上一页按钮
-            pager  布局数字列表
-            next   布局下一页按钮
-        small="small"：缩小一号
-        :total="videoPageInfo['total']"：绑定 "一共多少条数据" 的真实数据
-        :page-size="videoPageInfo['page-size']"：绑定 "每页显示多少条" 的真实数据
-        :current-page="videoPageInfo['page-num']"：绑定 "当前显示第几页" 的真实数据
-        @current-change="changePage"：当 "当前显示第几页" 发生改变时触发 `changePage` 方法
+        layout="prev, pager, next"：组件布局，子组件名用逗号分隔：
+            prev   上一页按钮
+            pager  数字列表
+            next   下一页按钮
+        small="small"：使用小型分页样式
+        :total="videoPageInfo['total']"：绑定总条目数
+        :page-size="videoPageInfo['page-size']"：绑定每页显示条目个数
+        :current-page="videoPageInfo['page-num']"：绑定当前页数
+        @current-change="changePage"：当前页数发生改变时触发 `changePage` 方法
       -->
       <el-pagination background layout="prev, pager, next" small="small"
                      :total="videoPageInfo['total']"
@@ -136,7 +164,7 @@
                      :current-page="videoPageInfo['page-num']"
                      @current-change="changePage"/>
 
-    </div>
+    </article>
 
   </footer>
 
@@ -147,6 +175,7 @@
 import {computed, onMounted, shallowReactive, shallowRef} from "vue";
 import {VIDEO_PAGE_API, VIDEO_SEARCH_BY_TITLE_API} from '@/api'
 import {nginxCoverImage} from "@/global_variable";
+import {ElMessage} from "element-plus";
 
 // data: 视频数据列表
 let videos = shallowRef();
@@ -158,15 +187,19 @@ let videoPageInfo = shallowReactive({
   'page-num': 1
 });
 
-// data: 搜索用的
+// data: 搜索表单对象
 let searchForm = shallowRef('');
+
+// data: 存放搜索表单的数据
 let searchFormData = shallowReactive({
   title: ''
 });
+
+// data: 存放搜索表单的校验规则
 let searchFormRule = shallowReactive({
   title: [{
     required: true,
-    message: '视频标题必填',
+    message: '您要搜索的视频标题不能为空',
     trigger: 'blur'
   }]
 });
@@ -204,33 +237,49 @@ let changeSize = size => {
 
 // method: 搜索视频
 let searchVideo = () => {
-  searchForm.value.validate(valid => {
+
+  // 检查一下是否表单中所有的控件都校验通过了
+  searchForm.value.validate(async valid => {
+
+    // 全部控件校验成功时，`valid` 参数才为true，否则为false
     if (valid) {
-      VIDEO_SEARCH_BY_TITLE_API(searchFormData['title']).then(resp => {
-        videos.value = resp['data']['data'];
-      })
+      try {
+        let resp = await VIDEO_SEARCH_BY_TITLE_API(searchFormData['title']);
+        if (resp['data']['code'] > 0) {
+          videos.value = resp['data']['data'];
+        } else console.error(resp['data']['message'])
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+
+      // EL提示组件
+      ElMessage('表单校验失败，请检查字段');
     }
+
   });
 }
 
 // method: 清空搜索
 let clearSearchVideo = () => {
   pageVideo(1, videoPageInfo['page-size']);
-  searchForm['title'] = '';
+  searchFormData['title'] = '';
 };
 
 // mounted: 页面加载完毕后，立刻调用 `pageVideo()` 方法
-onMounted(() => pageVideo(1, videoPageInfo['page-size']));
+onMounted(() => pageVideo(1, 6));
 
 </script>
 
 <style lang="scss" scoped>
 
 .video-list-header {
-  padding: 20px 0;
 
+  padding: 20px 0; // 上下内边距 左右内边距
+
+  /*表单项*/
   .el-form-item {
-    margin: 5px;
+    margin: 5px; // 外边距
   }
 }
 
@@ -272,7 +321,7 @@ onMounted(() => pageVideo(1, videoPageInfo['page-size']));
 
   /*分页按钮*/
   .el-pagination {
-    justify-content: center; // 两端对齐
+    justify-content: center; // Flex布局下，子元素主轴方向居中
   }
 
 }
