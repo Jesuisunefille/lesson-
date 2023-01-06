@@ -1,46 +1,58 @@
 import axios from 'axios'
-import {ip,backgroundPort} from "@/main.js";
+import {ip, backgroundPort} from '@/global_variable'
 
 // 创建Axios实例：配置Axios请求前缀和超时时间
 const baseAxios = axios.create({
-    baseURL: ip + ':' + backgroundPort + '/api/v1',
+    baseURL: `${ip}:${backgroundPort}/api/v1`,
     timeout: 5000
 })
 
-// 设置Axios请求拦截器：在发送请求前执行
-// 正常执行req函数，异常执行err函数
+// 设置Axios请求拦截器：在发送请求前执行，正常时执行req函数，异常时执行err函数
 baseAxios.interceptors.request.use(req => {
-    // 从sessionStorage中尝试获取token
+
+    // 从sessionStorage中获取Token令牌
     let token = sessionStorage.getItem("token");
-    // 如果token获取成功，则将token存放到请求头中
+
+    // 若Token令牌存在，则将Token令牌存入请求头
     if (token) req.headers['token'] = token;
-    // 无论token是否获取成功，放行请求
+
+    // 无无论Token是否获取成功，都放行请求
     return req;
+
 }, err => Promise.reject(err))
 
-
-// 设置Axios响应拦截器：在接收到响应之后执行
-// 正常执行req函数，异常执行err函数
+// 设置Axios响应拦截器：在接收到响应之后执行，正常时执行req函数，异常时执行err函数
 baseAxios.interceptors.response.use(resp => {
+
+    // 统一打印响应数据，便于测试
     console.log('baseAxios响应拦截器：', resp);
+
+    // 判断是否需要对Token进行自动续期
     if (resp.data['code'] === 99) {
-        console.log(resp.data['message']);
-        console.log('执行token自动续期');
+
+        console.log("执行Token自动续期");
+
+        // 从响应中获取新的Token令牌
         let newToken = resp.data['data'];
-        console.log('获取到新的token: ', newToken);
+
+        // 更新sessionStorage中的Token令牌
         sessionStorage.setItem("token", newToken);
-        console.log('更新sessionStorage中的token');
-        // todo: 更新vuex中的token
-        console.log('更新vuex中的token');
-        // 将新的token设置到重发的请求头
+
+        // 更新vuex中的Token令牌
+        // this.$store.dispatch('setToken', newToken)
+
+        // 将新的Token令牌设置到请求头
         baseAxios.defaults.headers['token'] = newToken;
-        console.log('将新的token设置到重发的请求头');
-        console.log('重新发送请求');
+
+        console.log("Token自动续期完毕，重新发送请求");
+
         // 重新发送请求
         return baseAxios.request(resp.config);
     }
-    // 放行响应
+
+    // 若不需要Token续期，则直接放行请求
     return resp;
+
 }, err => Promise.reject(err))
 
 /*轮播图：批查轮播图记录*/
@@ -135,3 +147,12 @@ export const CART_DELETE_BY_USER_ID_AND_VIDEO_IDS = (params) => baseAxios.post(
 export const CART_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
     "/cart/select-by-user-id",
     {params: {"user-id": userId}});
+
+
+
+
+
+
+
+
+
