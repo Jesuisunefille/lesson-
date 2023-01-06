@@ -22,7 +22,7 @@
 
         <!--展示图片：每张图片都可以点击跳转-->
         <!--
-          :src="nginxSrc(banner['src'])"：计算图片真实地址
+          :src="nginxSrc(banner['src'])"：计算轮播图的Nginx代理地址
           :title="banner['info']"：鼠标悬停在图片上时展示图片的介绍
         -->
         <a :href="banner['url']">
@@ -52,7 +52,7 @@
 
 import {computed, onMounted, shallowRef} from "vue";
 import {BANNER_LIST_API} from "@/api";
-import {nginxBanner} from "@/global_variable.js";
+import {nginxBanner} from "@/global_variable";
 
 // data: 轮播图数据列表
 let banners = shallowRef([]);
