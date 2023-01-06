@@ -14,7 +14,7 @@
 }
 
 // 全局图片
-image {
+.image {
   width: 100%; // 宽度
   height: 100%; // 高度
 }

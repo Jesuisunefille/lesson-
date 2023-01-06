@@ -14,7 +14,7 @@
     <el-carousel :interval="5000" arrow="always" indicator-position="outside">
       <el-carousel-item v-for="banner in banners">
         <a :href="banner['url']">
-          <el-image :src="nginxSrc(banner['src'])" :title="banner['info']"/>
+          <el-image :src="nginxSrc(banner['src'])" :title="banner['info']" class="image"/>
         </a>
       </el-carousel-item>
     </el-carousel>
