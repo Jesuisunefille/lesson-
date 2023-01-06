@@ -11,3 +11,9 @@ createApp(App)
     .use(router)
     .use(ElementPlus)
     .mount('#app')
+
+//全局变量
+export const ip = 'http://192.168.242.77';
+export const backgroundPort = '5277';
+
+export const nginxBanner = 'http://192.168.242.77:8023/banner/';

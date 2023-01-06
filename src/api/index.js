@@ -1,8 +1,9 @@
 import axios from 'axios'
+import {ip,backgroundPort} from "@/main.js";
 
 // 创建Axios实例：配置Axios请求前缀和超时时间
 const baseAxios = axios.create({
-    baseURL: "http://192.168.242.77:5277/api/v1",
+    baseURL: ip + ':' + backgroundPort + '/api/v1',
     timeout: 5000
 })
 
