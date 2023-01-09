@@ -1,5 +1,6 @@
 package com.cindy.controller;
 
+import com.cindy.entity.Episode;
 import com.cindy.entity.Video;
 import com.cindy.param.VideoPageParam;
 import com.cindy.service.VideoService;
@@ -22,6 +23,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
 
+/**
+ * @author Cindy
+ */
 @Tag(name = "VideoController", description = "视频模块接口")
 @Controller
 @RequestMapping("/api/v1/video")
@@ -70,5 +74,14 @@ public class VideoController {
         List<Video> result = videoService.searchByTitle(title);
         return !result.isEmpty() ? Result.ok(result) :
                 Result.fail(0, "无符合要求的视频");
+    }
+    @Operation(summary = "按视频主键查询该视频下的第一集", description = "无需token验证")
+    @GetMapping("/select-first-episode-by-id")
+    @ResponseBody
+    public Result selectFirstEpisodeById(@Validated @RequestParam Integer id) {
+        Episode episode = videoService.selectFirstByVideoId(id);
+        return null != episode ?
+                Result.ok(episode) :
+                Result.fail(0, "该视频暂无章集信息，请联系运维人员");
     }
 }

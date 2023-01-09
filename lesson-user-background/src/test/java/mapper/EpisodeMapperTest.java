@@ -22,4 +22,10 @@ public class EpisodeMapperTest {
     public void testSelectByChapterId() {
         episodeMapper.selectByChapterId(1).forEach(System.out::println);
     }
+
+    @Test
+    public void testSelectFirstByVideoId() {
+        System.out.println("1号视频的第一集: " + episodeMapper.selectFirstByVideoId(1));
+        System.out.println("2号视频的第一集: " + episodeMapper.selectFirstByVideoId(2));
+    }
 }

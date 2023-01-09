@@ -1,6 +1,7 @@
 package com.cindy.service;
 
 import com.cindy.document.VideoDoc;
+import com.cindy.entity.Episode;
 import com.cindy.entity.Video;
 import com.cindy.param.VideoPageParam;
 import com.github.pagehelper.PageInfo;
@@ -77,4 +78,12 @@ public interface VideoService {
      * @return 符合条件的VideoDoc记录的数量
      */
     long countByPhraseTitle(String title);
+
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    Episode selectFirstByVideoId(Integer id);
 }

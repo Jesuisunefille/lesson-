@@ -1,7 +1,11 @@
 package com.cindy.service.impl;
 
 import com.cindy.document.VideoDoc;
+import com.cindy.entity.Chapter;
+import com.cindy.entity.Episode;
 import com.cindy.entity.Video;
+import com.cindy.mapper.ChapterMapper;
+import com.cindy.mapper.EpisodeMapper;
 import com.cindy.mapper.VideoMapper;
 import com.cindy.param.VideoPageParam;
 import com.cindy.service.VideoService;
@@ -32,6 +36,12 @@ public class VideoServiceImpl implements VideoService {
 
     @Autowired
     private VideoMapper videoMapper;
+
+    @Autowired
+    private ChapterMapper chapterMapper;
+
+    @Autowired
+    private EpisodeMapper episodeMapper;
 
     @Autowired
     private ElasticsearchRestTemplate elasticsearchRestTemplate;
@@ -162,5 +172,15 @@ public class VideoServiceImpl implements VideoService {
                 .withQuery(queryBuilder)
                 .build();
         return elasticsearchRestTemplate.count(query, VideoDoc.class);
+    }
+
+    @Override
+    public Episode selectFirstByVideoId(Integer videoId) {
+        Chapter firstChapter = chapterMapper.selectFirstByVideoId(videoId);
+        if (null != firstChapter) {
+            Integer firstChapterId = firstChapter.getId();
+            return episodeMapper.selectFirstByChapterId(firstChapterId);
+        }
+        return null;
     }
 }

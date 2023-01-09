@@ -104,12 +104,15 @@ public class VideoServiceTest {
     }
 
     @Test
-    public void testSearchByTitle() {
-        videoService.searchByTitle("服务").forEach(System.out::println);
-    }
-
-    @Test
     public void testCountByTitle(){
         System.out.println(videoService.countByPhraseTitle("服务器"));
     }
+
+    @Test
+    public void testSelectFirstByVideoId() {
+        System.out.println("1号视频的第一集: " + videoService.selectFirstByVideoId(1));
+        System.out.println("2号视频的第一集: " + videoService.selectFirstByVideoId(2));
+        System.out.println("3号视频的第一集: " + videoService.selectFirstByVideoId(3));
+    }
+
 }
