@@ -10,6 +10,7 @@ const routes = [
   {path: '/common-footer', name: 'CommonFooter', component: import('@/components/common-footer')},
   {path: '/free-video', name: 'FreeVideo', component: import('@/views/video-detail/free-video')},
   {path: '/tab-summary', name: 'TabSummary', component: import('@/views/video-detail/tab-summary')},
+  {path: '/tab-catalog', name: 'TabCatalog', component: import('@/views/video-detail/tab-catalog')},
 ]
 
 const router = createRouter({
