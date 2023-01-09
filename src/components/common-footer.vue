@@ -46,7 +46,7 @@
 </template>
 
 <script setup>
-import {Calendar, Sunny, Apple} from '@element-plus/icons-vue';
+import {HomeFilled, GoodsFilled, UserFilled} from '@element-plus/icons-vue';
 import {shallowRef} from "vue";
 import router from "@/router";
 
@@ -55,9 +55,9 @@ let currentRouterPath = router.currentRoute.value.path;
 
 // data: 选项卡可选值
 const tabs = [
-  {name: '/', label: '首页', icon: Calendar},
-  {name: '/cart', label: '购物车', icon: Sunny},
-  {name: '/personal', label: '我的', icon: Apple}
+  {name: '/', label: '首页', icon: HomeFilled},
+  {name: '/cart', label: '购物车', icon: GoodsFilled},
+  {name: '/personal', label: '我的', icon: UserFilled}
 ];
 
 // data: 当前选中的选项卡
@@ -79,7 +79,7 @@ let handleClick = currentTab => {
 
 .common-footer-body {
 
-  background-color: black; // 背景色
+  background-color: orangered; // 背景色
   position: fixed; // 固定定位
   bottom: 0; // 下坐标
   z-index: 999; // Z轴
