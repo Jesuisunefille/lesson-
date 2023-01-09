@@ -4,6 +4,7 @@ const ip = '192.168.242.77';
 const resNginxHost = `http://${ip}:8023`;
 
 // OSS服务器Host地址
+// 在访问端口栏查看地址
 const ossHost = 'https://cindy-lesson-bucket.oss-cn-hangzhou.aliyuncs.com/';
 
 // 用户后台服务地址
@@ -19,10 +20,11 @@ export const ossUserAvatar = `${ossHost}/user-avatar/`;
 export const nginxBanner = `${resNginxHost}/banner/`;
 
 // Nginx视频封面图代理地址
-export const nginxCoverImage = `${resNginxHost}/cover-image/`;
+export const nginxVideoCover = `${resNginxHost}/video-cover/`;
 
 // Nginx视频摘要图代理地址
 export const nginxVideoSummary = `${resNginxHost}/video-summary/`;
 
 // Nginx视频文件代理地址
 export const nginxVideo = `${resNginxHost}/video/`;
+

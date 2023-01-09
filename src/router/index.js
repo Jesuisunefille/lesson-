@@ -7,7 +7,8 @@ const routes = [
   {path: '/banner', name: 'Banner', component: import('@/views/welcome/banner')},
   {path: '/video-list', name: 'VideoList', component: import('@/views/welcome/video-list')},
   {path: '/common-header', name: 'CommonHeader', component: import('@/components/common-header')},
-  {path: '/common-footer', name: 'CommonFooter', component: import('@/components/common-footer')}
+  {path: '/common-footer', name: 'CommonFooter', component: import('@/components/common-footer')},
+  {path: '/free-video', name: 'FreeVideo', component: import('@/views/video-detail/free-video')},
 ]
 
 const router = createRouter({
