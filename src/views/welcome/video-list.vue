@@ -77,7 +77,7 @@
               path: '/video-detail'：点击进入VideoDetail组件
               query: {'id': video['id']}：向目标组件传递视频ID值
         -->
-        <router-link :to="{ path: '', query: {'id': video['id']} }">
+        <router-link :to="{ path: '/video-detail', query: {'video-id': video['id']} }">
 
           <!--视频封面图-->
           <!--
