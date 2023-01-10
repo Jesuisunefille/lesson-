@@ -13,6 +13,9 @@ import com.cindy.server.SmsServer;
 import com.cindy.service.OrderService;
 import com.cindy.util.BuildUtil;
 import com.cindy.util.NullUtil;
+import com.cindy.vo.OrderPageVo;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -25,7 +28,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 /**
- * @author JoeZhou
+ * @author cindy
  */
 @Slf4j
 @Service
@@ -207,6 +210,38 @@ public class OrderServiceImpl implements OrderService {
     private void deleteVideoOrder(Integer orderId) {
         if (videoOrderMapper.deleteByOrderId(orderId) <= 0) {
             throw new RuntimeException("VideoOrder删除失败");
+        }
+    }
+
+    @Override
+    public OrderPageVo pageDetailByUserId(Integer userId, Integer page, Integer size){
+
+        this.checkUserExists(userId);
+        // 分页查询VideoOrder记录
+        PageHelper.startPage(page, size);
+        PageInfo<VideoOrder> videoPageInfo = new PageInfo<>(videoOrderMapper.selectDetailByUserId(userId));
+
+        // 组装VO
+        OrderPageVo orderPageVo = new OrderPageVo();
+        orderPageVo.setTotal(videoPageInfo.getTotal());
+        orderPageVo.setPageNum(videoPageInfo.getPageNum());
+        orderPageVo.setPageSize(videoPageInfo.getPageSize());
+        orderPageVo.setPages(videoPageInfo.getPages());
+        orderPageVo.setVideoOrders(videoPageInfo.getList());
+
+        // 返回VO
+        return orderPageVo;
+    }
+
+
+    /**
+     * 检查用户是否存在，不存在直接抛出异常
+     *
+     * @param userId User主键
+     */
+    private void checkUserExists(Integer userId) {
+        if (null == userMapper.selectByUserId(userId)) {
+            throw new RuntimeException("用户不存在");
         }
     }
 }

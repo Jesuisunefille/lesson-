@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * @author Cindy
+ */
 @Schema(name = "CartInsertParam", description = "用于添加购物车Param实体参数")
 @Data
 @AllArgsConstructor

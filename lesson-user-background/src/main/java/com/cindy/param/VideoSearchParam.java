@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
+/**
+ * @author Cindy
+ */
 @Schema(name = "VideoSearchParam", description = "用于分页搜索视频的Param实体参数")
 @Data
 public class VideoSearchParam implements Serializable {

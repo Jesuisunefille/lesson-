@@ -7,6 +7,9 @@ import lombok.Data;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
+/**
+ * @author Cindy
+ */
 @Schema(name = "CartClearParam", description = "用于清空用户购物车的Param实体参数")
 @Data
 public class CartClearParam implements Serializable {

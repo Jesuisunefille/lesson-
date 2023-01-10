@@ -3,6 +3,7 @@ package com.cindy.service;
 import com.cindy.entity.VideoOrder;
 import com.cindy.param.OrderDeleteParam;
 import com.cindy.param.OrderInsertParam;
+import com.cindy.vo.OrderPageVo;
 
 import java.util.List;
 
@@ -53,4 +54,19 @@ public interface OrderService {
      * @return 影响条目数
      */
     int deleteById(OrderDeleteParam orderDeleteParam);
+
+
+    /**
+     * <h2>分页查询个人订单详情</h2>
+     * <p> 01. 调用Mapper接口检查用户是否存在，若不存在抛出异常。
+     * <p> 02. 调用Mapper接口按用户主键查询该用户的全部完整VideoOrder记录。
+     * <p> 03. 查询成功：返回该用户的全部完整VideoOrder记录。
+     * <p> 04. 查询失败：直接返回null值。
+     *
+     * @param userId User主键
+     * @param page   当前显示第几页
+     * @param size   每页显示多少条
+     * @return 指定用户的部分订单数据的VO实体
+     */
+    OrderPageVo pageDetailByUserId(Integer userId, Integer page, Integer size);
 }

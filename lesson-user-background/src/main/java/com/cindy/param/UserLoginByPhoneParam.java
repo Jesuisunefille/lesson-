@@ -11,6 +11,9 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 
+/**
+ * @author Cindy
+ */
 @Schema(name = "UserLoginByPhoneParam", description = "用于用户按手机号码和验证码进行登录的Param实体参数")
 @AllArgsConstructor
 @NoArgsConstructor

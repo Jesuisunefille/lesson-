@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author JoeZhou
+ * @author cindy
  */
 @Repository
 public interface UserMapper {
@@ -125,4 +125,20 @@ public interface UserMapper {
             "</where>" +
             "</script>")
     User selectByPhone(String phone);
+
+
+    /**
+     * 按用户主键单查User记录
+     *
+     * @param userId User表主键
+     * @return 单条User记录
+     */
+    @Select("<script>" +
+            SELECT_ALL +
+            "<where>" +
+            "<if test='_parameter != null'> u.id = #{param1} </if> " +
+            "OR 1 = 2" +
+            "</where>" +
+            "</script>")
+    User selectByUserId(Integer userId);
 }

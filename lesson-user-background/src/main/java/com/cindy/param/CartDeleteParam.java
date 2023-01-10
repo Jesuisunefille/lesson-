@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
+/**
+ * @author Cindy
+ */
 @Schema(name = "CartDeleteParam", description = "用于删除购物车Param实体参数")
 @Data
 public class CartDeleteParam implements Serializable {

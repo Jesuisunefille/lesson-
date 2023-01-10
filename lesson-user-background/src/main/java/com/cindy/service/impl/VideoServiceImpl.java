@@ -31,6 +31,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * @author Cindy
+ */
 @Service
 public class VideoServiceImpl implements VideoService {
 

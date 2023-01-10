@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 /**
- * @author JoeZhou
+ * @author cindy
  */
 @Schema(name = "OrderInsertParam", description = "用于用户下单购买视频的Param实体参数")
 @Data
