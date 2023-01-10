@@ -59,23 +59,17 @@ baseAxios.interceptors.response.use(resp => {
 export const BANNER_LIST_API = () => baseAxios.get(
     "/banner/list");
 
-/*视频：分页查询视频记录*/
-export const VIDEO_PAGE_API = (page, size) => baseAxios.get(
-    "/video/page",
-    {params: {page, size}});
-
 /*视频：按视频主键单查视频记录（包括章节记录）*/
-export const VIDEO_SELECT_DETAIL_BY_ID = (id) => baseAxios.get(
-    "/video/select-detail-by-id",
-    {params: {id}});
+export const VIDEO_SELECT_DETAIL_BY_VIDEO_ID = (videoId) => baseAxios.get(
+    "/video/select-detail-by-video-id",
+    {params: {'video-id': videoId}});
 
 /*视频：按视频标题搜索视频*/
-export const VIDEO_SEARCH_BY_TITLE_API = (title) => baseAxios.get(
+export const VIDEO_SEARCH_BY_TITLE_API = (title, page, size) => baseAxios.get(
     "/video/search-by-title",
-    {params: {title}});
+    {params: {title, page, size}});
 
 /*用户：单增用户记录*/
-
 export const USER_REGISTER_API = (params) => baseAxios.post(
     "/user/register", params);
 
@@ -84,34 +78,34 @@ export const USER_LOGIN_BY_PHONE_API = (params) => baseAxios.post(
     "/user/login-by-phone", params);
 
 /*用户：按主键查询用户积分*/
-export const USER_SELECT_POINTS_BY_ID = (id) => baseAxios.get(
-    "/user/select-points-by-id",
-    {params: {id}});
+export const USER_SELECT_POINTS_BY_USER_ID = (userId) => baseAxios.get(
+    "/user/select-points-by-user-id",
+    {params: {'user-id': userId}});
 
 /*用户：按主键单删用户记录*/
-export const USER_DELETE_BY_ID_API = (params) => baseAxios.post(
-    "/user/delete-by-id", params);
+export const USER_DELETE_BY_USER_ID_API = (params) => baseAxios.post(
+    "/user/delete-by-user-id", params);
 
 /*用户：按主键单改用户记录*/
-export const USER_UPDATE_BY_ID_API = (params) => baseAxios.post(
-    "/user/update-by-id", params);
+export const USER_UPDATE_BY_USER_ID_API = (params) => baseAxios.post(
+    "/user/update-by-user-id", params);
 
 /*用户：按主键单查用户记录*/
-export const USER_SELECT_BY_ID_API = (id) => baseAxios.get(
-    "/user/select-by-id",
-    {params: {id}});
+export const USER_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
+    "/user/select-by-user-id",
+    {params: {'user-id': userId}});
 
 /*用户：按账号密码进行登录*/
 export const USER_LOGIN_API = (params) => baseAxios.post(
     "/user/login", params);
 
 /*用户：按主键单改用户头像*/
-export const USER_UPDATE_AVATAR_BY_ID_API = (params) => baseAxios.post(
-    "/user/update-avatar-by-id", params);
+export const USER_UPDATE_AVATAR_BY_USER_ID_API = (params) => baseAxios.post(
+    "/user/update-avatar-by-user-id", params);
 
 /*用户：按主键单改用户密码*/
-export const USER_UPDATE_PASSWORD_BY_ID_API = (params) => baseAxios.post(
-    "/user/update-password-by-id", params);
+export const USER_UPDATE_PASSWORD_BY_USER_ID_API = (params) => baseAxios.post(
+    "/user/update-password-by-user-id", params);
 
 /*用户：按手机号获取验证码*/
 export const USER_GET_VERIFICATION_CODE = (phone) => baseAxios.get(
@@ -123,13 +117,13 @@ export const ORDER_INSERT_API = (params) => baseAxios.post(
     "/order/insert", params);
 
 /*订单：按主键单删订单记录*/
-export const ORDER_DELETE_BY_ID_API = (params) => baseAxios.post(
-    "/order/delete-by-id", params);
+export const ORDER_DELETE_BY_ORDER_API = (params) => baseAxios.post(
+    "/order/delete-by-order-id", params);
 
 /*订单：按用户主键批查订单记录*/
-export const ORDER_SELECT_BY_USERID_API = (userId) => baseAxios.get(
-    "/order/select-by-user-id",
-    {params: {"user-id": userId}});
+export const ORDER_PAGE_DETAIL_BY_USER_ID_API = (userId, page, size) => baseAxios.get(
+    "/order/page-detail-by-user-id",
+    {params: {'user-id': userId, page, size}});
 
 /*购物车：单增购物车记录*/
 export const CART_INSERT_OR_UPDATE_API = (params) => baseAxios.post(

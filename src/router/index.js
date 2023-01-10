@@ -1,9 +1,11 @@
 import {createRouter, createWebHashHistory} from 'vue-router'
 import Welcome from '@/views/welcome'
+import VideoDetail from '@/views/video-detail'
 
 // 所有组件的路由都在这个数组中配置
 const routes = [
   {path: '/', name: 'Welcome', component: Welcome},
+  {path: '/video-detail', name: 'VideoDetail', component: VideoDetail},
   {path: '/banner', name: 'Banner', component: import('@/views/welcome/banner')},
   {path: '/video-list', name: 'VideoList', component: import('@/views/welcome/video-list')},
   {path: '/common-header', name: 'CommonHeader', component: import('@/components/common-header')},

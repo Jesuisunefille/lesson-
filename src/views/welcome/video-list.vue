@@ -3,50 +3,29 @@
   <header class="video-list-header">
 
     <!--搜索视频表单-->
-    <!--
-      ref="searchForm"：表单名称，校验的时候使用
-      :inline="true"：行内表单模式
-      :model="searchForm"：绑定表单数据对象
-      :rules="searchRule"：绑定表单验证规则
-    -->
-    <el-form ref="searchForm"
-             :inline="true"
-             :model="searchFormData"
-             :rules="searchFormRule">
+    <el-form ref="searchForm">
 
       <!--存放单行文本框的表单项-->
-      <!--
-        prop="title"：若该表单项需要校验，则必须使用设置prop属性
-      -->
-      <el-form-item prop="title">
+      <el-form-item>
 
         <!--单行文本框控件-->
         <!--
-          v-model="searchFormData['title']"：双向绑定表单数据中title值
-          placeholder="请输入视频标题进行搜索.."：背景提示字
+          v-model="videoTitle"：双向绑定videoTitle属性
+          clearable：显示清除按钮
         -->
-        <el-input type="text"
-                  v-model="searchFormData['title']"
-                  placeholder="请输入视频标题进行搜索.."/>
+        <el-input type="text" placeholder="请输入视频标题进行搜索.." clearable
+                  v-model="videoTitle">
 
-      </el-form-item>
+          <!--插槽：搜索图标-->
+          <!--
+            :icon="Search"：使用搜索图标
+            @click="searchVideo"：点击时触发searchVideo()方法
+          -->
+          <template #append>
+            <el-button :icon="Search" @click="searchVideoByTitle(videoTitle,1,videoPageInfo['page-size'])"/>
+          </template>
 
-      <!--存放按钮的表单项-->
-      <el-form-item>
-
-        <!--搜索按钮-->
-        <!--
-          type="primary"：蓝色
-          @click="searchVideo"：点击该按钮时触发searchVideo方法
-        -->
-        <el-button type="primary" @click="searchVideo">搜索视频</el-button>
-
-        <!--清空搜索-->
-        <!--
-          type="danger"：红色
-          @click="clearSearchVideo"：点击该按钮时触发clearSearchVideo方法
-        -->
-        <el-button type="danger" @click="clearSearchVideo">清空搜索</el-button>
+        </el-input>
 
       </el-form-item>
 
@@ -57,7 +36,10 @@
   <section class="video-list-body">
 
     <!--展示视频列表-->
-    <el-row>
+    <!--
+      :gutter="20"：槽宽
+    -->
+    <el-row :gutter="20">
 
       <!--根据屏幕大小展示视频列表-->
       <!--
@@ -75,7 +57,7 @@
         <!--
           <router-link :to="{..}">：点击切换组件
               path: '/video-detail'：点击进入VideoDetail组件
-              query: {'id': video['id']}：向目标组件传递视频ID值
+              query: {'video-id': video['id']}：向目标组件传递视频ID值
         -->
         <router-link :to="{ path: '/video-detail', query: {'video-id': video['id']} }">
 
@@ -172,9 +154,10 @@
 
 <script setup>
 
+import {Search} from '@element-plus/icons-vue';
 import {computed, onMounted, shallowReactive, shallowRef} from "vue";
-import {VIDEO_PAGE_API, VIDEO_SEARCH_BY_TITLE_API} from '@/api'
-import {nginxCoverImage} from "@/global_variable";
+import {VIDEO_SEARCH_BY_TITLE_API} from '@/api'
+import {nginxVideoCover} from "@/global_variable";
 import {ElMessage} from "element-plus";
 
 // data: 视频数据列表
@@ -187,36 +170,28 @@ let videoPageInfo = shallowReactive({
   'page-num': 1
 });
 
-// data: 搜索表单对象
-let searchForm = shallowRef('');
-
-// data: 存放搜索表单的数据
-let searchFormData = shallowReactive({
-  title: ''
-});
-
-// data: 存放搜索表单的校验规则
-let searchFormRule = shallowReactive({
-  title: [{
-    required: true,
-    message: '您要搜索的视频标题不能为空',
-    trigger: 'blur'
-  }]
-});
+// data: 搜索时用户输入的视频标题
+let videoTitle = shallowRef('');
 
 // computed: 拼接Nginx视频封面目录前缀
-let nginxSrc = computed(() => src => nginxCoverImage + src);
+let nginxSrc = computed(() => src => nginxVideoCover + src);
 
 // method: 异步分页查询视频列表
-let pageVideo = async (page, size) => {
+let searchVideoByTitle = async (title, page, size) => {
   try {
-    const resp = await VIDEO_PAGE_API(page, size);
+    if ('' === title.trim()) {
+      title = 'JB';
+    }
+    const resp = await VIDEO_SEARCH_BY_TITLE_API(title, page, size);
     if (resp['data']['code'] > 0) {
       let data = resp['data']['data'];
       videos.value = data['videos'];
       videoPageInfo['page-size'] = data['page-size'];
       videoPageInfo['total'] = data['total'];
       videoPageInfo['page-num'] = data['page-num'];
+    } else {
+      ElMessage('无符合要求的视频');
+      await searchVideoByTitle('JB', 1, 6);
     }
   } catch (e) {
     console.error(e);
@@ -226,48 +201,17 @@ let pageVideo = async (page, size) => {
 // method: 当前显示第几页被改变时触发
 let changePage = page => {
   videoPageInfo['page-num'] = page;
-  pageVideo(page, videoPageInfo['page-size']);
+  searchVideoByTitle(videoTitle.value, page, videoPageInfo['page-size']);
 };
 
 // method: 每页显示多少条被改变时触发：
 let changeSize = size => {
   videoPageInfo['page-size'] = size;
-  pageVideo(videoPageInfo['page-num'], size);
+  searchVideoByTitle(videoTitle.value, videoPageInfo['page-num'], size);
 };
 
-// method: 搜索视频
-let searchVideo = () => {
-
-  // 检查一下是否表单中所有的控件都校验通过了
-  searchForm.value.validate(async valid => {
-
-    // 全部控件校验成功时，`valid` 参数才为true，否则为false
-    if (valid) {
-      try {
-        let resp = await VIDEO_SEARCH_BY_TITLE_API(searchFormData['title']);
-        if (resp['data']['code'] > 0) {
-          videos.value = resp['data']['data'];
-        } else console.error(resp['data']['message'])
-      } catch (e) {
-        console.error(e);
-      }
-    } else {
-
-      // EL提示组件
-      ElMessage('表单校验失败，请检查字段');
-    }
-
-  });
-}
-
-// method: 清空搜索
-let clearSearchVideo = () => {
-  pageVideo(1, videoPageInfo['page-size']);
-  searchFormData['title'] = '';
-};
-
-// mounted: 页面加载完毕后，立刻调用 `pageVideo()` 方法
-onMounted(() => pageVideo(1, 6));
+// mounted: 页面加载完毕后，立刻调用 `searchVideoByTitle()` 方法
+onMounted(() => searchVideoByTitle('JB', 1, 6));
 
 </script>
 
@@ -275,23 +219,14 @@ onMounted(() => pageVideo(1, 6));
 
 .video-list-header {
 
-  padding: 20px 0; // 上下内边距 左右内边距
-
-  /*表单项*/
-  .el-form-item {
-    margin: 5px; // 外边距
-  }
 }
 
 .video-list-body {
 
-  margin: 20px; // 上内边距 左右内边距 下内边距
-
   /*视频封面图片*/
   .cover-image {
-    width: 300px; // 宽度
-    height: 200px; // 高度
-    margin: 5px; // 外边距
+    width: 100%; // 宽度
+    height: 300px; // 高度
     border: 5px solid black; // 边框
     border-radius: 5px; // 圆角
     box-sizing: border-box; // 中和边框和内边距
@@ -303,16 +238,17 @@ onMounted(() => pageVideo(1, 6));
     /*视频标题和作者*/
     .video-title-and-author {
       margin: 10px auto; // 上下外边距 左右居中
-      font-size: 13px; // 字号
     }
 
     /*视频价格*/
     .video-price {
       margin: 10px auto; // 上下外边距 左右居中
-      font-size: 11px; // 字号
+      font-size: 0.9em; // 字号
       color: #d93f30; // 前景色
     }
+
   }
+
 }
 
 .video-list-footer {
