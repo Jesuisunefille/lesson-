@@ -3,6 +3,9 @@
   <header class="video-detail-header">
 
     <!--通用头子组件-->
+    <!--
+      title="视频详情"：向子组件传值
+    -->
     <common-header title="视频详情"/>
 
   </header>
@@ -100,7 +103,15 @@
   </section>
 
   <footer class="video-detail-footer">
-    <el-button type="warning" @click="addToCart" class="add-to-cart-btn">加入购物车</el-button>
+
+    <!--按钮：加入购物车-->
+    <!--
+      @click="addToCart"：点击按钮时触发addToCart方法
+    -->
+    <el-button type="warning" class="add-to-cart-btn" @click="addToCart">
+      加入购物车
+    </el-button>
+
   </footer>
 
 </template>
@@ -120,9 +131,6 @@ import {useStore} from "vuex";
 
 // data: vuex实例
 const vuex = useStore();
-
-// data: 从sessionStorage中获取当前登录的用户主键
-const userId = sessionStorage.getItem('user-id');
 
 // data: 从当前路由中获取视频主键
 const videoId = router.currentRoute.value.query['video-id'];
@@ -162,15 +170,19 @@ let selectDetailByVideoById = async (videoId) => {
 let addToCart = () => {
 
   // 未登录保护
-  if (!vuex.state['token']) {
-    ElMessage("请先登录！");
+  if (!vuex.state['loginFlag']) {
+
+    ElMessage('请先登录！');
+
+    // 两秒之后跳入登录组件
     setTimeout(() => router.push("/login"), 2000);
+
     return;
   }
 
   // 添加购物车
   CART_INSERT_OR_UPDATE_API({
-    'user-id': userId,
+    'user-id': sessionStorage.getItem('user-id'),
     'video-id': videoId,
     'title': video.value['title'],
     'price': video.value['price'],
@@ -178,12 +190,13 @@ let addToCart = () => {
     'cover-image': video.value['cover-image']
   }).then(resp => {
     if (resp['data']['code'] > 0) {
-      router.push({path: '/cart'});
+      // 登录成功，跳入Cart组件
+      router.push('/cart');
     } else {
-      console.log(resp['data']['message']);
+      console.error(resp['data']['message']);
       ElMessage('购物车添加失败！');
     }
-  }).catch(error => console.log(error))
+  }).catch(err => console.log(err))
 }
 
 // mounted: 页面加载完毕后，立刻调用 `selectDetailByVideoById()` 方法
@@ -195,8 +208,10 @@ onMounted(() => selectDetailByVideoById(videoId));
 
 .video-detail-body {
 
+  /*免费视频和视频信息介绍*/
   .detail-info {
 
+    /*栅格列*/
     .el-col {
       padding: 10px; // 内边距
     }
@@ -214,6 +229,7 @@ onMounted(() => selectDetailByVideoById(videoId));
       text-align: left; // 内容居左
       margin: 10px 15px; // 上下外边距 左右外边距
 
+      /*视频信息的值*/
       .msg-val {
         float: right; // 右浮动
         color: #ff792f; // 前景色
@@ -221,6 +237,7 @@ onMounted(() => selectDetailByVideoById(videoId));
     }
   }
 
+  /*视频信息选项卡*/
   .detail-tab {
     margin: 20px 0; //上下外边距 左右忽略
   }
@@ -228,24 +245,26 @@ onMounted(() => selectDetailByVideoById(videoId));
 }
 
 .video-detail-footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  padding: 8px 0;
-  z-index: 999;
+  position: fixed; // 固定定位
+  bottom: 0; // 下坐标
+  width: 100%; // 宽度
+  padding: 8px 0; // 上下内边距 左右内边距
+  z-index: 999; // Z轴
 
+  /*添加购物车按钮*/
   .add-to-cart-btn {
-    display: block;
-    color: #fff;
-    margin: 0 auto;
-    background-color: #d93f30;
-    height: 35px;
-    border-radius: 15px;
-    width: 90%;
-    border: none;
-    font-size: 15px;
-    text-align: center;
+    display: block; // 区块
+    color: #fff; // 前景色
+    margin: 0 auto; // 自居中
+    background-color: #d93f30; // 背景色
+    height: 35px; // 高度
+    border-radius: 15px; // 圆角
+    width: 90%; // 宽度
+    border: none; // 边框
+    font-size: 15px; // 字号
+    text-align: center; // 内容居中
   }
+
 }
 
 </style>

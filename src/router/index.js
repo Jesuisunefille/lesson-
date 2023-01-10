@@ -13,6 +13,9 @@ const routes = [
   {path: '/free-video', name: 'FreeVideo', component: import('@/views/video-detail/free-video')},
   {path: '/tab-summary', name: 'TabSummary', component: import('@/views/video-detail/tab-summary')},
   {path: '/tab-catalog', name: 'TabCatalog', component: import('@/views/video-detail/tab-catalog')},
+  {path: '/VuexTest',name: 'VuexTest',component: import('@/views/VuexTest')},
+  {path: '/VuexTest1',name: 'VuexTest1',component: import('@/views/VuexTest1')},
+  {path: '/VuexTest2',name: 'VuexTest2',component: import('@/views/VuexTest2')}
 ]
 
 const router = createRouter({

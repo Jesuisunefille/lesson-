@@ -59,15 +59,19 @@ baseAxios.interceptors.response.use(resp => {
 export const BANNER_LIST_API = () => baseAxios.get(
     "/banner/list");
 
+export const VIDEO_PAGE_API = (page, size) => baseAxios.get(
+    "/video/page",
+    {params: {page, size}});
+
 /*视频：按视频主键单查视频记录（包括章节记录）*/
 export const VIDEO_SELECT_DETAIL_BY_VIDEO_ID = (videoId) => baseAxios.get(
-    "/video/select-detail-by-video-id",
+    "/video/select-detail-by-id",
     {params: {'video-id': videoId}});
 
 /*视频：按视频标题搜索视频*/
-export const VIDEO_SEARCH_BY_TITLE_API = (title, page, size) => baseAxios.get(
+export const VIDEO_SEARCH_BY_TITLE_API = (title) => baseAxios.get(
     "/video/search-by-title",
-    {params: {title, page, size}});
+    {params: {title}});
 
 /*用户：单增用户记录*/
 export const USER_REGISTER_API = (params) => baseAxios.post(

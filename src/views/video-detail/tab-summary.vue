@@ -25,7 +25,9 @@ import {nginxVideoSummary} from "@/global_variable";
 // props: 接收父组件传递过来的值
 let props = defineProps({
   summaryImage: {
-    type: String, required: true
+    type: String,
+    required: true,
+    default: 'default-summary.jpg'
   }
 })
 
