@@ -8,6 +8,9 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
+/**
+ * @author Cindy
+ */
 public interface VideoService {
 
     /**
@@ -86,4 +89,5 @@ public interface VideoService {
      * @return
      */
     Episode selectFirstByVideoId(Integer id);
+
 }

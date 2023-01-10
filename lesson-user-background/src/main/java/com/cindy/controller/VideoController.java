@@ -35,14 +35,16 @@ public class VideoController {
     private VideoService videoService;
 
     @ResponseBody
-    @Operation(summary = "按视频主键查询视频详细记录", description = "无需token验证")
+    @Operation(summary = "按视频主键单查视频记录详情", description = "无需token验证，查询的结果中包含视频中的章节记录")
     @GetMapping("/select-detail-by-id")
-    public Result selectDetailById(@RequestParam @Parameter(description = "视频表主键") Integer id) {
-        Video video = videoService.selectDetailById(id);
+    public Result selectDetailById(@Parameter(description = "视频表主键")
+                                   @RequestParam("video-id") Integer videoId) {
+        Video video = videoService.selectDetailById(videoId);
         return null != video ?
                 Result.ok(video) :
                 Result.fail(0, "视频不存在");
     }
+
 
     @Operation(summary = "分页查询视频记录", description = "无需token验证")
     @GetMapping("/page")
