@@ -107,6 +107,7 @@ let login = () => {
 
         // 将用户的Token令牌存入sessionStorage中
         sessionStorage.setItem('token', data['token']);
+        sessionStorage.setItem('user-id', data['user']['id']);
 
         // 将用户登录状态存入vuex中
         vuex.dispatch('setLoginFlag', true);
