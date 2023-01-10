@@ -2,7 +2,7 @@ import { createStore } from 'vuex'
 
 export default createStore({
   state: {
-    loginFlag: false // 当前用户的登录状态，true表示用户已登录, false表示用户未登录
+    loginFlag: !!sessionStorage.getItem('token') // 当前用户的登录状态，true表示用户已登录, false表示用户未登录
   },
   mutations: {
     setLoginFlag: (state, loginFlag) => state.loginFlag = loginFlag // 将参数赋予对应的state共享变量
