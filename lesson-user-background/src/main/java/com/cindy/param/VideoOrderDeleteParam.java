@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * @author JoeZhou
+ * @author Cindy
  */
 @Schema(name = "VideoOrderDeleteParam", description = "用于删除中间表的Param实体参数")
 @Data

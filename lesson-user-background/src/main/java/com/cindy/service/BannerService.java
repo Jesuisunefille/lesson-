@@ -4,6 +4,9 @@ import com.cindy.entity.Banner;
 
 import java.util.List;
 
+/**
+ * @author Cindy
+ */
 public interface BannerService {
 
     /**

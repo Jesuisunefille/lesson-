@@ -3,7 +3,7 @@ package com.cindy.util;
 import org.apache.commons.lang3.StringUtils;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public class NullUtil {
 

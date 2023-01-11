@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import java.util.List;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Aspect //以声明为切面类
 @Configuration   //以声明为配置类

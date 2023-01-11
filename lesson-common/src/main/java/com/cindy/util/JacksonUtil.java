@@ -9,7 +9,7 @@ import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 
 /**
- * @author JoeZhou
+ * @author Cindy
  */
 @Data
 public class JacksonUtil {

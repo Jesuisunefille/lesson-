@@ -7,6 +7,9 @@ import com.cindy.param.CartInsertParam;
 
 import java.util.Map;
 
+/**
+ * @author Cindy
+ */
 public interface CartService {
 
     /**

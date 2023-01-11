@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 
 public class JedisSentinelUtil {

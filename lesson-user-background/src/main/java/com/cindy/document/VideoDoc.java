@@ -13,6 +13,7 @@ import java.util.Date;
 /**
  * 开发ES的Doc实体类
  * Doc实体类用于映射ES数据，相当于映射数据库数据的Entity实体类
+ * @author Cindy
  */
 @Data
 @Document(indexName = "i_video")  //一个实体类对应一条文档，索引自动创建

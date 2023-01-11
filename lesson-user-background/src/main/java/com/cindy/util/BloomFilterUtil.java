@@ -3,7 +3,7 @@ package com.cindy.util;
 import java.util.BitSet;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public class BloomFilterUtil {
 

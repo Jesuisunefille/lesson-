@@ -10,7 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * @author JoeZhou
+ * @author Cindy
  */
 @Schema(name = "VideoPageVo", description = "视频分页VO实体")
 @Data

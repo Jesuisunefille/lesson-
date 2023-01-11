@@ -8,9 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- * @author JoeZhou
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = UserBackgroundApp.class)
 public class BannerServiceTest {

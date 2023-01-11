@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Schema(name = "UserDeleteParam", description = "用于注销用户的Param实体参数")
 @Data

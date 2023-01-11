@@ -9,7 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public class FileUtil {
 

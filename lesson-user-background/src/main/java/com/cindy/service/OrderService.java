@@ -8,7 +8,7 @@ import com.cindy.vo.OrderPageVo;
 import java.util.List;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public interface OrderService {
 

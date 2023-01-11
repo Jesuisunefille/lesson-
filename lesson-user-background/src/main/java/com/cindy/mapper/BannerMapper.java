@@ -7,6 +7,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+/**
+ * @author Cindy
+ */
 @Repository
 public interface BannerMapper {
     String SELECT_ALL = "SELECT b.id, b.url, b.src, b.weight, b.info, b.create_time, b.last_modify " +

@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author cindy
+ * @author Cindy
  * 前端拦截器调用时，若token快要过期，则获取后端新生成的token并存储起来
  */
 @Component

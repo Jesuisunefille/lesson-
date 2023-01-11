@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public interface TestService {
     /**

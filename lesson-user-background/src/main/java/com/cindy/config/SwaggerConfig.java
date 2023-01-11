@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Configuration
 public class SwaggerConfig {

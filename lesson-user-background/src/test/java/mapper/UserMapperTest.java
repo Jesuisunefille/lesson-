@@ -12,9 +12,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.Date;
 
-/**
- * @author cindy
- */
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = UserBackgroundApp.class)

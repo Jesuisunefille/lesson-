@@ -19,7 +19,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Service
 public class UserServiceImpl implements UserService {
@@ -284,6 +284,16 @@ public class UserServiceImpl implements UserService {
 
         // 登录成功返回对应的User信息
         return user;
+    }
+
+    @Override
+    public int updateByUserId(UserUpdateParam userUpdateParam) {
+        if (null == userUpdateParam.getId()) {
+            throw new RuntimeException("必要参数为空");
+        }
+        User user = new User();
+        BeanUtils.copyProperties(userUpdateParam, user);
+        return userMapper.updateByUserId(user);
     }
 
 

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
- * @author JoeZhou
+ * @author Cindy
  */
 @Slf4j
 @ControllerAdvice("com.cindy")

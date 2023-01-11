@@ -7,7 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public class EncryptionUtil {
 

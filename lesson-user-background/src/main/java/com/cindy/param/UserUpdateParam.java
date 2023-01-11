@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Schema(name = "UserUpdateParam", description = "用于用户修改的Param实体参数")
 @Data

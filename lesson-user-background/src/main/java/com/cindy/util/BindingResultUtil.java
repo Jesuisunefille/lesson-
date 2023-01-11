@@ -3,6 +3,9 @@ package com.cindy.util;
 import org.springframework.validation.BindingResult;
 
 
+/**
+ * @author Cindy
+ */
 public class BindingResultUtil {
     public static void check(BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

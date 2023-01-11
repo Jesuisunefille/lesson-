@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Repository
 public interface UserMapper {
@@ -141,4 +141,33 @@ public interface UserMapper {
             "</where>" +
             "</script>")
     User selectByUserId(Integer userId);
+
+
+    /**
+     * <h2>按主键单改User记录</h2>
+     * <p>其中ID，USERNAME和CREATE_TIME字段不允许修改
+     * <p>其中REAL_NAME和ID_CARD在单独业务中进行修改
+     * <p>其中PASSWORD在单独业务中进行修改
+     * <p>其中PHONE在单独业务中进行修改
+     *
+     * @param user 用户实体
+     * @return 影响条目数
+     */
+    @Update("<script>" +
+            "UPDATE lesson.user" +
+            "<set> " +
+            "<if test='password != null'> password = #{password}, </if>" +
+            "<if test='nickName != null'> nick_name = #{nickName}, </if>" +
+            "<if test='gender != null'> gender = #{gender}, </if>" +
+            "<if test='phone != null'> phone = #{phone}, </if>" +
+            "<if test='age != null'> age = #{age}, </if>" +
+            "<if test='avatar != null'> avatar = #{avatar}, </if>" +
+            "<if test='info != null'> info = #{info}, </if>" +
+            "last_modify = now()" +
+            "</set>" +
+            "<where>" +
+            "<if test='id != null'> id = #{id} </if> OR 1 = 2" +
+            "</where>" +
+            "</script>")
+    int updateByUserId(User user);
 }

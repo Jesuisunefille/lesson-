@@ -8,7 +8,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Schema(name = "UserVo", description = "用户VO实体")
 @Data

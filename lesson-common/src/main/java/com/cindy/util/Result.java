@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.SneakyThrows;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Data
 @AllArgsConstructor

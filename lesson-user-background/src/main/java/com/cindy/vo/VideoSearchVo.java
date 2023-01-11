@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.List;
 
 
+/**
+ * @author Cindy
+ */
 @Schema(name = "VideoSearchVo", description = "视频搜索分页VO实体")
 @Data
 @JsonIgnoreProperties("handler")

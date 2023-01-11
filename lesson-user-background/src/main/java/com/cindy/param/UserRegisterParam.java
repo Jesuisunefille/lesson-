@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Schema(name = "UserRegisterParam", description = "用于用户注册的Param实体参数")
 @AllArgsConstructor

@@ -7,6 +7,9 @@ import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+/**
+ * @author Cindy
+ */
 @Repository
 public interface OrderMapper {
     String SELECT_ALL = "SELECT o.id, o.number, o.state, o.total_fee, o.info, o.create_time, o.last_modify " +

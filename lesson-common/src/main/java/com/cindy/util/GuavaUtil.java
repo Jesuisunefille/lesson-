@@ -6,7 +6,7 @@ import com.google.common.cache.CacheBuilder;
 import java.util.concurrent.TimeUnit;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public class GuavaUtil {
 

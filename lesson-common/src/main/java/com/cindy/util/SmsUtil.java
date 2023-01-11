@@ -5,7 +5,9 @@ import com.cloopen.rest.sdk.CCPRestSmsSDK;
 
 import java.util.Map;
 
-
+/**
+ * @author Cindy
+ */
 public class SmsUtil {
 
     private static final String SERVER_IP = "app.cloopen.com";

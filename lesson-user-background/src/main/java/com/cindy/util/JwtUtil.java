@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public class JwtUtil {
 

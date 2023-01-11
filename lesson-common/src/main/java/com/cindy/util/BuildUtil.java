@@ -4,7 +4,7 @@ import java.util.Random;
 import java.util.UUID;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public class BuildUtil {
 

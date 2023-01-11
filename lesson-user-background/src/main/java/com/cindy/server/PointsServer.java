@@ -11,6 +11,9 @@ import redis.clients.jedis.Jedis;
 
 import java.util.concurrent.Future;
 
+/**
+ * @author Cindy
+ */
 @Slf4j
 @Component
 public class PointsServer {

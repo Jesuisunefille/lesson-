@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Slf4j
 @ServerEndpoint("/api/v1/danmu-server/{id}")

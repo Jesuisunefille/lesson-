@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-/**
- * @author cindy
- */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = UserBackgroundApp.class)
 public class UserServiceTest {
@@ -73,5 +70,12 @@ public class UserServiceTest {
         System.out.println(userService.loginByPhone(userLoginByPhoneParam));
     }
 
+    @Test
+    public void testUpdateByUserId() {
+        UserUpdateParam userUpdateParam = new UserUpdateParam();
+        userUpdateParam.setId(1);
+        userUpdateParam.setNickName("随机昵称...");
+        System.out.println(userService.updateByUserId(userUpdateParam) > 0 ? "用户修改成功" : "用户修改失败");
+    }
 
 }

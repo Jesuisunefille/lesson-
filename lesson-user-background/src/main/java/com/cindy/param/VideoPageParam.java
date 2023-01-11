@@ -6,7 +6,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Schema(name = "VideoPageParam", description = "用于分页查询视频的Param实体参数")
 @Data

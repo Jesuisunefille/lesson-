@@ -20,7 +20,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Tag(name = "UserController", description = "用户模块接口")
 @Slf4j
@@ -145,6 +145,17 @@ public class UserController {
                 user.getNickName(),
                 user.getAvatar()));
         return Result.ok(userLoginVo);
+    }
+
+    @Operation(summary = "按主键单改用户记录", description = "需要token验证")
+    @Token
+    @PostMapping("/update-by-user-id")
+    public Result updateByUserId(@RequestBody @Validated UserUpdateParam userUpdateParam,
+                                 BindingResult bindingResult) {
+        BindingResultUtil.check(bindingResult);
+        return userService.updateByUserId(userUpdateParam) > 0 ?
+                Result.ok() :
+                Result.fail(0, "修改失败");
     }
 
 

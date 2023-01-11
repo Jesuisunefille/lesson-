@@ -6,7 +6,7 @@ import com.cindy.param.*;
 import java.util.List;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 public interface UserService {
 
@@ -143,4 +143,19 @@ public interface UserService {
      * @return 登录失败返回null，登录成功返回对应的User信息
      */
     User loginByPhone(UserLoginByPhoneParam userLoginByPhoneParam);
+
+
+    /**
+     * <h2>修改个人信息</h2>
+     * <p>其中ID，USERNAME和CREATE_TIME字段不允许修改
+     * <p>其中REAL_NAME和ID_CARD在单独业务中进行修改
+     * <p>其中PASSWORD在单独业务中进行修改
+     * <p>其中PHONE在单独业务中进行修改
+     * <p> 01. 判断必填属性：若主键为null，则直接抛出参数异常。
+     * <p> 02. 调用Mapper接口按主键修改用户记录，返回操作影响条目数。
+     *
+     * @param userUpdateParam 用户修改业务实体参数
+     * @return 影响条目数
+     */
+    int updateByUserId(UserUpdateParam userUpdateParam);
 }
