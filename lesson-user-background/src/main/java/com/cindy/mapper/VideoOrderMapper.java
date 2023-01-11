@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * @author cindy
+ * @author Cindy
  */
 @Repository
 public interface VideoOrderMapper {
@@ -42,19 +42,6 @@ public interface VideoOrderMapper {
             "<if test='_parameter != null'> user_id = #{param1} </if> OR 1 = 2 </where>" +
             "</script>")
     int deleteByUserId(Integer userId);
-
-    /**
-     * 按Order主键单删VideoOrder记录
-     *
-     * @param orderId Order主键
-     * @return 影响条目数
-     */
-    @Delete("<script>" +
-            "DELETE FROM lesson.video_order " +
-            "<where>" +
-            "<if test='_parameter != null'> order_id = #{param1} </if> OR 1 = 2 </where>" +
-            "</script>")
-    int deleteByOrderId(Integer orderId);
 
     /**
      * 按主键查询VideoOrder表记录，分步查询Video表，Order表和User表
@@ -120,5 +107,44 @@ public interface VideoOrderMapper {
             "</where>" +
             "</script>")
     List<Video> selectByUserIdAndVideoIds(Integer userId, Integer[] videoIds);
+
+    /**
+     * 按VideoOrder主键单删VideoOrder记录
+     *
+     * @param videoOrderId Order主键
+     * @return 影响条目数
+     */
+    @Delete("<script>" +
+            "DELETE FROM lesson.video_order " +
+            "<where>" +
+            "<if test='_parameter != null'> id = #{param1} </if> OR 1 = 2 </where>" +
+            "</script>")
+    int deleteByVideoOrderId(Integer videoOrderId);
+
+    /**
+     * 按Order主键查询VideoOrder记录
+     *
+     * @param orderId Order主键
+     * @return 全部VideoOrder记录
+     */
+    @Select("<script> " + SELECT_ALL +
+            "<where>" +
+            "<if test='_parameter != null'> vo.order_id = #{param1} </if> OR 1 = 2 </where>" +
+            "</script>")
+    List<VideoOrder> selectByOrderId(Integer orderId);
+
+
+    /**
+     * 按Order主键单删VideoOrder记录
+     *
+     * @param orderId Order主键
+     * @return 影响条目数
+     */
+    @Delete("<script>" +
+            "DELETE FROM lesson.video_order " +
+            "<where>" +
+            "<if test='_parameter != null'> order_id = #{param1} </if> OR 1 = 2 </where>" +
+            "</script>")
+    int deleteByOrderId(Integer orderId);
 
 }

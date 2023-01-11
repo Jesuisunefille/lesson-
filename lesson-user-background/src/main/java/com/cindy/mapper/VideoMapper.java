@@ -91,6 +91,4 @@ public interface VideoMapper {
             "</where>" +
             "</script>")
     List<Video> selectLikeTitle(String title);
-
-
 }

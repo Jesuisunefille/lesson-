@@ -51,4 +51,20 @@ public interface OrderMapper {
             "</where>" +
             "</script>")
     int deleteById(Integer id);
+
+
+    /**
+     * 按订单主键单删Order记录
+     *
+     * @param orderId Order表主键
+     * @return 影响条目数
+     */
+    @Delete("<script>" +
+            "DELETE FROM lesson.`order`" +
+            "<where>" +
+            "<if test='_parameter != null'> id = #{param1} </if> " +
+            "OR 1 = 2 " +
+            "</where>" +
+            "</script>")
+    int deleteByOrderId(Integer orderId);
 }
