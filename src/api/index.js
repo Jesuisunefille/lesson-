@@ -146,6 +146,10 @@ export const CART_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
     "/cart/select-by-user-id",
     {params: {"user-id": userId}});
 
+/*视频订单中间表：按视频订单中间表主键单删视频订单中间表记录*/
+export const VIDEO_ORDER_DELETE_BY_VIDEO_ORDER_API = (params) => baseAxios.post(
+    "/video-order/delete-by-video-order-id", params);
+
 
 
 

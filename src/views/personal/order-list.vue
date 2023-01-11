@@ -48,6 +48,14 @@
             -->
             <el-link type="warning" class="play-btn" @click="playVideo(videoOrder['video']['id'])">播放视频</el-link>
 
+            <!--从订单中删除视频-->
+            <!--
+              @click="deleteOrder(videoOrder['order']['id'])": 当点击时触发deleteVideoOrder方法
+            -->
+            <el-link type="danger" class="remove-btn"
+                     @click="deleteVideoOrder(videoOrder['order']['id'], videoOrder['id'])">[删除视频]
+            </el-link>
+
             <!--删除订单-->
             <!--
               @click="deleteOrder(videoOrder['order']['id'])": 当点击时触发deleteOrder方法
@@ -179,6 +187,34 @@ let pageDetailByUserId = async (userId, page, size) => {
     } else {
       console.error(resp['data']['message']);
     }
+  } catch (e) {
+    console.error(e);
+  }
+}
+
+// method: 删除订单中的某个视频
+let deleteVideoOrder = async (orderId, videoOrderId) => {
+
+  try {
+
+    // 危险操作保护
+    if (!confirm("您将要删除这个视频，确定吗？")) return false;
+
+    // 准备请求参数
+    let params = {
+      "video-order-id": videoOrderId,
+      "order-id": orderId
+    };
+
+    // 异步调用接口：按 `订单ID` 和 `视频订单中间表ID` 删除 `视频订单中间表` 记录
+    const resp = await VIDEO_ORDER_DELETE_BY_VIDEO_ORDER_API(params);
+    if (resp['data']['code'] > 0) {
+      ElMessage('订单删除成功');
+
+      // 当删除成功后，重新调用分页查询方法
+      await pageDetailByUserId(userId, orderPageInfo['page-num'], orderPageInfo['page-size']);
+
+    } else console.error(resp['data']['message']);
   } catch (e) {
     console.error(e);
   }
