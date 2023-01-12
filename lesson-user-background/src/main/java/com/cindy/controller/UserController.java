@@ -146,6 +146,7 @@ public class UserController {
         return Result.ok(userLoginVo);
     }
 
+    @ResponseBody
     @Operation(summary = "按主键单改用户记录", description = "需要token验证")
     @Token
     @PostMapping("/update-by-user-id")
