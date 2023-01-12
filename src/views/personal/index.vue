@@ -35,23 +35,14 @@
       <!--功能按钮-->
       <article class="header-body">
 
-        <!--按钮-退出登录-->
-        <!--
-          @click="logout": 点击时触发logout方法
-        -->
-        <el-button @click="logout" type="danger" class="exit-btn">退出登录</el-button>
-
-        <!--按钮-退出登录-->
-        <!--
-          @click="router.push('/user-update')": 点击时进入UserUpdate组件
-        -->
-        <el-link type="primary" class="update-btn" @click="router.push('/user-update')">修改个人信息</el-link>
-
-        <!--按钮-注销个人账户-->
-        <!--
-          @click="deleteByUserId": 点击时触发deleteByUserId方法
-        -->
-        <el-link type="danger" class="delete-btn" @click="deleteByUserId">注销个人账户</el-link>
+        <el-button type="primary" class="opera-btn" @click="">查询积分</el-button>
+        <el-button type="primary" class="opera-btn" @click="router.push('/order-list')">查询订单</el-button>
+        <el-button type="warning" class="opera-btn" @click="router.push('/user-update')">修改信息</el-button>
+        <el-button type="warning" class="opera-btn" @click="router.push('/user-update-avatar')">修改头像</el-button>
+        <el-button type="warning" class="opera-btn" @click="router.push('/user-update-password')">重置密码</el-button>
+        <el-button type="warning" class="opera-btn" @click="ElMessage.info('暂未开通服务')">重置手机</el-button>
+        <el-button type="danger" class="opera-btn" @click="logout">注销账户</el-button>
+        <el-button type="danger" class="opera-btn" @click="logout">退出登录</el-button>
 
       </article>
 
@@ -182,7 +173,7 @@ let deleteByUserId = () => {
 
 // mounted: 页面加载完毕后，立刻调用 `selectByUserId()` 方法
 onMounted(() => {
-  selectByUserId(userId);
+  if(loginFlag) selectByUserId(userId);
 });
 
 </script>
@@ -222,23 +213,22 @@ onMounted(() => {
   /*功能按钮*/
   .header-body {
 
-    /* 退出登录，立刻登录按钮 */
-    .exit-btn, .login-btn {
-      display: block; // 区块
-      width: 80%; // 宽度
-      height: 40px; // 高度
-      margin: 20px auto 0; // 上外边距 左右自居中 下外边距
-      color: #fff; // 前景色
-      border-radius: 20px; // 圆角
-    }
+    padding-top: 20px; // 上内边距
 
-    /*修改个人新按钮，注销个人账号按钮*/
-    .update-btn, .delete-btn {
+    /* 功能按钮 */
+    .opera-btn {
+
+      display: inline-block; // 区块
+      width: 40%; // 宽度
+      height: 40px; // 高度
       margin: 10px; // 外边距
+      color: #fff; // 前景色
+      border-radius: 5px; // 圆角
+      font-size: 0.9em; // 字号
+      letter-spacing: 5px; // 子间距
     }
 
   }
-
 }
 
 
