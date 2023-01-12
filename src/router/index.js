@@ -25,7 +25,12 @@ const routes = [
     path: '/user-update-password',
     name: 'UserUpdatePassword',
     component: () => import('@/views/personal/user-update-password')
-  }
+  },
+  {
+    path: '/user-update-avatar',
+    name: 'UserUpdateAvatar',
+    component: () => import('@/views/personal/user-update-avatar')
+  },
 ]
 
 const router = createRouter({

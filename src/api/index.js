@@ -92,11 +92,11 @@ export const USER_DELETE_BY_USER_ID_API = (params) => baseAxios.post(
 
 /*用户：按主键单改用户记录*/
 export const USER_UPDATE_BY_USER_ID_API = (params) => baseAxios.post(
-    "/user/update-by-user-id", params);
+    "/user/update-by-id", params);
 
 /*用户：按主键单查用户记录*/
 export const USER_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
-    "/user/select-by-user-id",
+    "/user/select-by-id",
     {params: {'user-id': userId}});
 
 /*用户：按账号密码进行登录*/
@@ -105,11 +105,11 @@ export const USER_LOGIN_API = (params) => baseAxios.post(
 
 /*用户：按主键单改用户头像*/
 export const USER_UPDATE_AVATAR_BY_USER_ID_API = (params) => baseAxios.post(
-    "/user/update-avatar-by-user-id", params);
+    "/user/update-avatar-by-id", params);
 
 /*用户：按主键单改用户密码*/
 export const USER_UPDATE_PASSWORD_BY_USER_ID_API = (params) => baseAxios.post(
-    "/user/update-password-by-user-id", params);
+    "/user/update-password-by-id", params);
 
 /*用户：按手机号获取验证码*/
 export const USER_GET_VERIFICATION_CODE = (phone) => baseAxios.get(
@@ -135,7 +135,7 @@ export const CART_INSERT_OR_UPDATE_API = (params) => baseAxios.post(
 
 /*购物车：按用户主键清空购物车记录*/
 export const CART_DELETE_BY_USER_ID = (params) => baseAxios.post(
-    "/cart/delete-by-user-id", params);
+    "/cart/delete-by-id", params);
 
 /*购物车：按用户主键和商品主键数组批删购物车记录*/
 export const CART_DELETE_BY_USER_ID_AND_VIDEO_IDS = (params) => baseAxios.post(
@@ -143,7 +143,7 @@ export const CART_DELETE_BY_USER_ID_AND_VIDEO_IDS = (params) => baseAxios.post(
 
 /*购物车：按用户主键批查购物车记录*/
 export const CART_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
-    "/cart/select-by-user-id",
+    "/cart/select-by-id",
     {params: {"user-id": userId}});
 
 /*视频订单中间表：按视频订单中间表主键单删视频订单中间表记录*/
