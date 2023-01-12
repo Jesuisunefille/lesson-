@@ -36,7 +36,7 @@ public class VideoOrderServiceImpl implements VideoOrderService {
     @Override
     public OrderPageVo pageDetailByUserId(Integer userId, Integer page, Integer size) {
 
-        if (null == userMapper.selectByUserId(userId)) {
+        if (null == userMapper.selectById(userId)) {
             throw new RuntimeException("用户不存在");
         }
 

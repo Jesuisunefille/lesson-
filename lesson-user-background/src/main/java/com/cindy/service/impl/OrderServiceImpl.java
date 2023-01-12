@@ -240,7 +240,7 @@ public class OrderServiceImpl implements OrderService {
      * @param userId User主键
      */
     private void checkUserExists(Integer userId) {
-        if (null == userMapper.selectByUserId(userId)) {
+        if (null == userMapper.selectById(userId)) {
             throw new RuntimeException("用户不存在");
         }
     }

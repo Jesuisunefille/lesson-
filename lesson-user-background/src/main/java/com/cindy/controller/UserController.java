@@ -69,7 +69,7 @@ public class UserController {
     @Token
     @GetMapping("/select-by-id")
     public Result selectByUserId(@Parameter(description = "用户表主键")
-                                 @RequestParam("id") Integer userId) {
+                                 @RequestParam("user-id") Integer userId) {
         User user = userService.selectById(userId);
         return user != null ?
                 Result.ok(user) :

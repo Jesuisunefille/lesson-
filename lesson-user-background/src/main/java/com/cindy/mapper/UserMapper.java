@@ -128,22 +128,6 @@ public interface UserMapper {
 
 
     /**
-     * 按用户主键单查User记录
-     *
-     * @param userId User表主键
-     * @return 单条User记录
-     */
-    @Select("<script>" +
-            SELECT_ALL +
-            "<where>" +
-            "<if test='_parameter != null'> u.id = #{param1} </if> " +
-            "OR 1 = 2" +
-            "</where>" +
-            "</script>")
-    User selectByUserId(Integer userId);
-
-
-    /**
      * <h2>按主键单改User记录</h2>
      * <p>其中ID，USERNAME和CREATE_TIME字段不允许修改
      * <p>其中REAL_NAME和ID_CARD在单独业务中进行修改

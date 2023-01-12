@@ -7,6 +7,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import java.io.Serializable;
 
 /**
@@ -18,6 +19,7 @@ public class UserUpdateParam implements Serializable {
 
     @Schema(description = "用户表主键", required = true, example = "1")
     @NotNull(message = "修改业务中主键不能为空")
+    @JsonProperty("user-id")
     private Integer id;
 
     @Schema(description = "用户新昵称", required = true, example = "赵英杰")
@@ -32,6 +34,10 @@ public class UserUpdateParam implements Serializable {
     @Schema(description = "用户新年龄", required = true, example = "35")
     @Range(min = 16, max = 60, message = "修改业务中年龄不能在16-60岁范围之外")
     private Integer age;
+
+    @Schema(description = "手机号码", required = true, example = "18210210122")
+    @Pattern(regexp = "^1(3[0-9]|4[01456879]|5[0-35-9]|6[2567]|7[0-8]|8[0-9]|9[0-35-9])\\d{8}$", message = "手机号码格式不正确")
+    private String phone;
 
     @Schema(description = "用户新描述", required = true, example = "新描述")
     @Length(max = 1024, message = "修改业务中描述内容长度不能在0-1024范围之外")

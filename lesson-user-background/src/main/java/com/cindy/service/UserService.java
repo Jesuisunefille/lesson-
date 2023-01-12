@@ -41,10 +41,11 @@ public interface UserService {
      * <p> 02. 查询失败：直接返回null值。
      * <p> 03. 查询成功：将电话号码和身份证号脱敏后返回。
      *
-     * @param id User表主键
+     * @param userId User表主键
      * @return 返回该用户记录，查询失败返回null
      */
-    User selectById(Integer id);
+    User selectById(Integer userId);
+
 
     /**
      * <h2>按手机号码查询个人信息</h2>
