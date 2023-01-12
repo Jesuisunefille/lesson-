@@ -78,4 +78,13 @@ public class OrderController {
                 Result.ok(orderPageVo) :
                 Result.fail(0, "该用户暂无订单记录");
     }
+
+    @Operation(summary = "按订单主键单删订单记录", description = "需要token验证")
+    @Token
+    @PostMapping("/delete-by-order-id")
+    public Result deleteByOrderId(@RequestBody OrderDeleteParam orderDeleteParam) {
+        return orderService.deleteByOrderId(orderDeleteParam) > 0 ?
+                Result.ok() :
+                Result.fail(0, "删除失败");
+    }
 }

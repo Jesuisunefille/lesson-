@@ -244,4 +244,26 @@ public class OrderServiceImpl implements OrderService {
             throw new RuntimeException("用户不存在");
         }
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int deleteByOrderId(OrderDeleteParam orderDeleteParam) {
+        int orderId = orderDeleteParam.getOrderId();
+        this.checkOrderExists(orderId);
+        this.deleteVideoOrder(orderId);
+        this.deleteOrder(orderId);
+        return 1;
+    }
+
+
+    /**
+     * 调用数据接口按主键查询订单记录，若订单不存在则抛异常
+     *
+     * @param orderId Order表主键
+     */
+    private void checkOrderExists(Integer orderId) {
+        if (null == orderMapper.selectByOrderId(orderId)) {
+            throw new RuntimeException("订单不存在");
+        }
+    }
 }

@@ -69,4 +69,11 @@ public class OrderServiceTest {
             });
         }
     }
+
+    @Test
+    public void testDeleteByOrderId() {
+        OrderDeleteParam orderDeleteParam = new OrderDeleteParam();
+        orderDeleteParam.setOrderId(9);
+        System.out.println(orderService.deleteByOrderId(orderDeleteParam) > 0 ? "成功" : "失败");
+    }
 }

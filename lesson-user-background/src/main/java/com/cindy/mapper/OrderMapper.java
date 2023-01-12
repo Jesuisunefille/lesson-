@@ -70,4 +70,19 @@ public interface OrderMapper {
             "</where>" +
             "</script>")
     int deleteByOrderId(Integer orderId);
+
+
+    /**
+     * 按订单主键单查Order记录
+     *
+     * @param orderId Order表主键
+     * @return 单条Order记录
+     */
+    @Select("<script>" + SELECT_ALL +
+            "<where>" +
+            "<if test='_parameter != null'> o.id = #{param1} </if> " +
+            "OR 1 = 2" +
+            "</where>" +
+            "</script>")
+    Order selectByOrderId(Integer orderId);
 }
