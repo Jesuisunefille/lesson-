@@ -18,6 +18,7 @@ public class UserUpdatePasswordParam implements Serializable {
 
     @Schema(description = "用户表主键", required = true, example = "1")
     @NotNull(message = "修改密码业务中主键不能为空")
+    @JsonProperty("user-id")
     private Integer id;
 
     @Schema(description = "用户原密码", required = true, example = "123456")

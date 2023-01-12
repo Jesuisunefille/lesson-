@@ -24,7 +24,7 @@ public class OrderServiceTest {
     @Test
     public void testInsert() {
         OrderInsertParam orderInsertParam = new OrderInsertParam();
-        orderInsertParam.setVideoIds(new Integer[]{13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31});
+        orderInsertParam.setVideoIds(new Integer[]{1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31});
         orderInsertParam.setUserId(6);
         orderInsertParam.setTotalFee(6500.00);
         System.out.println(orderService.insert(orderInsertParam) > 0 ? "成功" : "失败");

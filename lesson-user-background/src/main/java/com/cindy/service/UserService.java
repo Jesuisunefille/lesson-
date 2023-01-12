@@ -157,4 +157,34 @@ public interface UserService {
      * @return 影响条目数
      */
     int updateByUserId(UserUpdateParam userUpdateParam);
+
+
+    /**
+     * <h2>修改个人密码</h2>
+     * <p> 01. 检查必填参数：若包含null值则直接抛出参数异常。
+     * <p> 02. 调用Mapper接口检查该用户是否存在，不存在则抛异常。
+     * <p> 03. 调用Mapper接口检查该用户的原密码是否正确，密码需要加密后比对，不正确则抛异常。
+     * <p> 04. 调用Mapper接口修改该用户的密码为新密码，新密码需要加密和入库。
+     *
+     * @param userUpdatePasswordParam 用户修改密码业务实体参数
+     * @return 影响条目数
+     */
+    int updatePasswordByUserId(UserUpdatePasswordParam userUpdatePasswordParam);
+
+
+    /**
+     * <h2>注销个人账号</h2>
+     * <p>
+     * <p> 01. 方法需要添加 `@Transactional(rollbackFor = Exception.class)` 本地事务保护。
+     * <p> 02. 检查必填参数：若包含null值则直接抛出参数异常。
+     * <p> 03. 调用Mapper接口检查该用户是否存在，不存在则抛异常。
+     * <p> 04. 调用Mapper接口查询该用户关联的全部VideoOrder表记录。
+     * <p> 05. 调用Mapper接口删除该用户关联的VideoOrder表记录，若不存在则略过。
+     * <p> 06. 调用Mapper接口删除该用户关联的Order表记录，若不存在则略过。
+     * <p> 07. 调用Mapper接口删除该用户的User表记录。
+     *
+     * @param userDeleteParam 注销用户的Param实体
+     * @return 影响条目数
+     */
+    int deleteByUserId(UserDeleteParam userDeleteParam);
 }

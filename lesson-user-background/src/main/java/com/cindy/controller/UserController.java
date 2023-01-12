@@ -159,4 +159,14 @@ public class UserController {
     }
 
 
+    @Operation(summary = "按主键单删用户记录", description = "需要token验证")
+    @Token
+    @PostMapping("/delete-by-user-id")
+    public Result deleteByUserId(@RequestBody UserDeleteParam userDeleteParam) {
+        return userService.deleteByUserId(userDeleteParam) > 0 ?
+                Result.ok() :
+                Result.fail(0, "删除失败");
+    }
+
+
 }

@@ -296,6 +296,124 @@ public class UserServiceImpl implements UserService {
         return userMapper.updateByUserId(user);
     }
 
+    @Override
+    public int updatePasswordByUserId(UserUpdatePasswordParam userUpdatePasswordParam) {
 
+        Integer id = userUpdatePasswordParam.getId();
+        String oldPassword = userUpdatePasswordParam.getOldPassword();
+        String newPassword = userUpdatePasswordParam.getNewPassword();
+
+        if (NullUtil.hasNull(id, oldPassword, newPassword)) {
+            throw new RuntimeException("必要参数为空");
+        }
+
+        User user = this.selectUser(id);
+        this.checkOldPassword(oldPassword, user);
+        this.updateNewPassword(newPassword, user);
+        return 1;
+    }
+
+
+    /**
+     * 查询用户记录
+     *
+     * @param userId User主键
+     * @return 用户记录，若不存在则抛出异常
+     */
+    private User selectUser(Integer userId) {
+        User user = userMapper.selectByUserId(userId);
+        if (null == user) {
+            throw new RuntimeException("用户不存在");
+        }
+        return user;
+    }
+
+
+    /**
+     * 检查该用户的原密码是否正确，密码需要加密后比对
+     *
+     * @param oldPassword 用户输入的原密码
+     * @param user        用户实体
+     */
+    private void checkOldPassword(String oldPassword, User user) {
+        oldPassword = EncryptionUtil.encryptPassword(oldPassword);
+        if (!oldPassword.equals(user.getPassword())) {
+            throw new RuntimeException("原密码有误");
+        }
+    }
+
+
+    /**
+     * 修改该用户的密码为新密码，新密码需要加密和入库
+     *
+     * @param newPassword 新密码
+     * @param user        User实体
+     */
+    private void updateNewPassword(String newPassword, User user) {
+        newPassword = EncryptionUtil.encryptPassword(newPassword);
+        user.setPassword(newPassword);
+        if (userMapper.updateByUserId(user) <= 0) {
+            throw new RuntimeException("修改密码异常");
+        }
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public int deleteByUserId(UserDeleteParam userDeleteParam) {
+        Integer userId = userDeleteParam.getUserId();
+        if (null == userId) {
+            throw new RuntimeException("必要参数为空");
+        }
+        this.checkUserExists(userId);
+        this.delUserOrder(userId);
+        this.delUser(userId);
+        return 1;
+    }
+
+
+    /**
+     * 调用数据接口按主键查询用户记录，若用户不存在则抛异常
+     *
+     * @param userId User表主键
+     */
+    private void checkUserExists(Integer userId) {
+        if (null == userMapper.selectByUserId(userId)) {
+            throw new RuntimeException("用户不存在");
+        }
+    }
+
+
+    /**
+     * 删除该用户关联的全部VideoOrder表记录和Order表记录
+     *
+     * @param userId User主键
+     */
+    private void delUserOrder(Integer userId) {
+
+        // 查询该用户关联的全部VideoOrder表记录
+        List<VideoOrder> videoOrders = videoOrderMapper.selectByUserId(userId);
+        if (null != videoOrders && !videoOrders.isEmpty()) {
+
+            // 删除该用户关联的VideoOrder表记录，若不存在则略过
+            videoOrderMapper.deleteByUserId(userId);
+
+            // 删除该用户关联的Order表记录，若不存在则略过
+            for (VideoOrder videoOrder : videoOrders) {
+                orderMapper.deleteByOrderId(videoOrder.getOrderId());
+            }
+        }
+    }
+
+
+    /**
+     * 删除该用户的User表记录
+     *
+     * @param userId User主键
+     */
+    private void delUser(Integer userId) {
+        if (userMapper.deleteByUserId(userId) <= 0) {
+            throw new RuntimeException("用户删除操作异常");
+        }
+    }
 
 }

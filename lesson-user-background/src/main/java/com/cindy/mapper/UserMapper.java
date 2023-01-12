@@ -170,4 +170,20 @@ public interface UserMapper {
             "</where>" +
             "</script>")
     int updateByUserId(User user);
+
+
+    /**
+     * 按用户主键单删User记录
+     *
+     * @param userId User表主键
+     * @return 影响条目数
+     */
+    @Delete("<script>" +
+            "DELETE FROM lesson.user" +
+            "<where>" +
+            "<if test='_parameter != null'> id = #{param1} </if> " +
+            "OR 1 = 2 " +
+            "</where>" +
+            "</script>")
+    int deleteByUserId(Integer userId);
 }

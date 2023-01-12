@@ -1,10 +1,7 @@
 package service;
 
 import com.cindy.UserBackgroundApp;
-import com.cindy.param.UserLoginByPhoneParam;
-import com.cindy.param.UserLoginParam;
-import com.cindy.param.UserRegisterParam;
-import com.cindy.param.UserUpdateParam;
+import com.cindy.param.*;
 import com.cindy.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -76,6 +73,22 @@ public class UserServiceTest {
         userUpdateParam.setId(1);
         userUpdateParam.setNickName("随机昵称...");
         System.out.println(userService.updateByUserId(userUpdateParam) > 0 ? "用户修改成功" : "用户修改失败");
+    }
+
+    @Test
+    public void testUpdatePasswordByUserId() {
+        UserUpdatePasswordParam userUpdatePasswordParam = new UserUpdatePasswordParam();
+        userUpdatePasswordParam.setId(6);
+        userUpdatePasswordParam.setOldPassword("123456");
+        userUpdatePasswordParam.setNewPassword("111111");
+        System.out.println(userService.updatePasswordByUserId(userUpdatePasswordParam) > 0 ? "成功" : "失败");
+    }
+
+    @Test
+    public void testDeleteByUserId() {
+        UserDeleteParam userDeleteParam = new UserDeleteParam();
+        userDeleteParam.setUserId(1);
+        System.out.println(userService.deleteByUserId(userDeleteParam) > 0 ? "成功" : "失败");
     }
 
 }
