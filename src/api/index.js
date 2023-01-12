@@ -94,7 +94,7 @@ export const USER_DELETE_BY_USER_ID_API = (params) => baseAxios.post(
 export const USER_UPDATE_BY_USER_ID_API = (params) => baseAxios.post(
     "/user/update-by-user-id", params);
 
-/*用户：按主键单查用户记录*/
+// 用户GET: 按 `用户ID` 查询一条 `用户` 记录
 export const USER_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
     "/user/select-by-id",
     {params: {'user-id': userId}});
