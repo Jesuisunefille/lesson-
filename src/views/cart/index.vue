@@ -12,6 +12,12 @@
     <!--如果当前用户存在购物车数据则展示此容器-->
     <article v-if="carts.length > 0">
 
+      <p class="remove-cart">
+        <el-link type="danger" @click="clearCart">清空购物车</el-link>
+      </p>
+
+      <el-divider/>
+
       <div v-for="cart in carts" class="cart-item">
 
         <el-row>
@@ -22,7 +28,7 @@
             <!--
               v-model="videos": 双向绑定videos属性
             -->
-            <el-checkbox-group v-model="videos" class="checkbox-group">
+            <el-checkbox-group v-model="selectedCarts" class="checkbox-group">
 
               <!--多选按钮-->
               <!--
@@ -88,7 +94,7 @@
         @click="toPay": 点击时触发toPay方法
       -->
       <div class="pay-btn">
-        <el-button type="danger" size="large" @click="toPay">立即结算</el-button>
+        <el-button type="danger" size="large" @click="pay">立即结算</el-button>
       </div>
 
     </article>
@@ -104,11 +110,17 @@
 
 import CommonFooter from '@/components/common-footer';
 import CommonHeader from '@/components/common-header';
-import {CART_SELECT_BY_USER_ID_API, CART_DELETE_BY_USER_ID_AND_VIDEO_IDS_API, ORDER_INSERT_API} from "@/api";
+import {nginxVideoCover} from '@/global_variable';
+import {
+  CART_SELECT_BY_USER_ID_API,
+  CART_DELETE_BY_USER_ID_AND_VIDEO_IDS_API,
+  ORDER_INSERT_API,
+  CART_DELETE_BY_USER_ID_API
+} from "@/api";
 import {onMounted, ref, computed} from "vue";
 import {useStore} from 'vuex';
 import {ElMessage} from "element-plus";
-import {nginxVideoCover} from '@/global_variable';
+
 import router from "@/router";
 
 // data: Vuex实例
@@ -123,8 +135,8 @@ const loginFlag = vuex.state['loginFlag'];
 // 购物车列表实例
 let carts = ref([]);
 
-// 当前选中的视频实例
-let videos = ref([]);
+// 当前选中的购物车列表实例
+let selectedCarts = ref([]);
 
 // computed: 拼接Nginx视频封面代理目录前缀
 const nginxSrc = computed(() => src => nginxVideoCover + src);
@@ -132,7 +144,7 @@ const nginxSrc = computed(() => src => nginxVideoCover + src);
 // computed: 计算当前金额
 const totalFee = computed(() => {
   let result = 0;
-  videos.value.forEach(video => result += video['price']);
+  selectedCarts.value.forEach(video => result += video['price']);
   return result;
 });
 
@@ -153,10 +165,13 @@ let removeFromCart = async (videoId) => {
   // 危险操作保护
   if (!confirm("选中的视频商品将被移出购物车，确定吗？")) return false;
 
+  // 准备请求参数
   let params = {
     'video-ids': [videoId],
     'user-id': userId
   }
+
+  // 异步调用对应的API接口
   let resp = await CART_DELETE_BY_USER_ID_AND_VIDEO_IDS_API(params);
   try {
     if (resp['data']['code'] > 0) {
@@ -169,29 +184,62 @@ let removeFromCart = async (videoId) => {
 
 };
 
-// method: 立即结算
-let toPay = async () => {
+// method: 清空购物车
+let clearCart = async () => {
 
-  let videoIds = [];
-  videos.value.forEach(value => videoIds.push(value['video-id']))
+  // 危险操作保护
+  if (!confirm("清空购物车中的全部商品，确定吗？")) return false;
 
+  // 准备请求参数
   let params = {
-    'video-ids': videoIds,
-    'total-fee': totalFee.value,
-    'user-id': userId,
-    'info': '测试订单备注'
+    'user-id': userId
   }
 
+  // 异步调用对应的API接口
+  let resp = await CART_DELETE_BY_USER_ID_API(params);
   try {
+    if (resp['data']['code'] > 0) {
+      ElMessage.success('购物车清空成功');
+      location.reload();
+    } else ElMessage.error(resp['data']['message']);
+  } catch (e) {
+    console.error(e)
+  }
+}
+
+// method: 立即结算
+let pay = async () => {
+
+  try {
+
+    // 声明视频ID数组
+    let videoIds = [];
+
+    // 赋值视频ID数组
+    selectedCarts.value.forEach(cart => videoIds.push(cart['video-id']));
+
+    // 准备请求参数
+    let params = {
+      'video-ids': videoIds,
+      'total-fee': totalFee.value,
+      'user-id': userId,
+      'info': '暂无描述'
+    }
+
+    // 异步调用对应API接口
     const resp = await ORDER_INSERT_API(params);
     if (resp['data']['code'] > 0) {
-      CART_DELETE_BY_USER_ID_AND_VIDEO_IDS_API(params).then(resp => {
-        if (resp['data']['code'] > 0) {
-          ElMessage.success('支付成功');
-          router.push("/personal");
-        } else ElMessage.error(resp['data']['message']);
 
-      }).catch(e => console.error(e));
+      // 调用成功后删除对应的购物车记录
+      let resp = await CART_DELETE_BY_USER_ID_AND_VIDEO_IDS_API(params);
+      try {
+        if (resp['data']['code'] > 0) {
+          ElMessage.success('结算成功');
+          await router.push("/order-list");
+        } else ElMessage.error(resp['data']['message']);
+      } catch (e) {
+        console.error(e)
+      }
     } else {
       ElMessage.error(resp['data']['message']);
     }
@@ -227,6 +275,12 @@ onMounted(() => {
 
   padding-top: 20px; // 上内边距
   margin-bottom: 100px; // 下外边距
+
+  /*清空购物车段落*/
+  .remove-cart {
+    text-align: right; // 内容局右
+    padding-right: 10px; // 右内边距
+  }
 
   /*每个购物车展示项*/
   .cart-item {

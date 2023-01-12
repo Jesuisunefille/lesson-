@@ -154,6 +154,10 @@ export const CART_DELETE_BY_USER_ID_AND_VIDEO_IDS_API = (params) => baseAxios.po
 export const VIDEO_ORDER_DELETE_BY_VIDEO_ORDER_API = (params) => baseAxios.post(
     "/video-order/delete-by-video-order-id", params);
 
+// 购物车POST：按 `用户ID` 清空 `购物车` 记录
+export const CART_DELETE_BY_USER_ID_API = (params) => baseAxios.post(
+    "/cart/delete-by-user-id", params);
+
 
 
 
