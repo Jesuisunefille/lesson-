@@ -145,7 +145,11 @@
 <script setup>
 
 import CommonHeader from "@/components/common-header";
-import {ORDER_DELETE_BY_ORDER_API, ORDER_PAGE_DETAIL_BY_USER_ID_API} from "@/api";
+import {
+  ORDER_DELETE_BY_ORDER_API,
+  ORDER_PAGE_DETAIL_BY_USER_ID_API,
+  VIDEO_ORDER_DELETE_BY_VIDEO_ORDER_API
+} from "@/api";
 import {nginxVideoCover} from '@/global_variable';
 import router from "@/router";
 import {onMounted, ref, computed, shallowReactive} from "vue";

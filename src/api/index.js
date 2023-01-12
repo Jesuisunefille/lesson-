@@ -142,10 +142,6 @@ export const CART_SELECT_BY_USER_ID_API = (userId) => baseAxios.get(
     "/cart/select-by-user-id",
     {params: {"user-id": userId}});
 
-// 视频订单中间表POST：按 `视频订单中间表ID` 删除一条 `视频订单中间表` 记录
-export const VIDEO_ORDER_DELETE_BY_VIDEO_ORDER_API = (params) => baseAxios.post(
-    "/video-order/delete-by-video-order-id", params);
-
 // 订单POST: 按 `订单ID` 删除一条 `订单` 记录
 export const ORDER_DELETE_BY_ORDER_API = (params) => baseAxios.post(
     "/order/delete-by-order-id", params);
@@ -153,6 +149,10 @@ export const ORDER_DELETE_BY_ORDER_API = (params) => baseAxios.post(
 // 购物车POST：按 `用户ID/商品ID数组` 删除多条 `购物车` 记录
 export const CART_DELETE_BY_USER_ID_AND_VIDEO_IDS_API = (params) => baseAxios.post(
     "/cart/delete-by-user-id-and-video-ids", params);
+
+// 视频订单中间表POST：按 `视频订单中间表ID` 删除一条 `视频订单中间表` 记录
+export const VIDEO_ORDER_DELETE_BY_VIDEO_ORDER_API = (params) => baseAxios.post(
+    "/video-order/delete-by-video-order-id", params);
 
 
 
