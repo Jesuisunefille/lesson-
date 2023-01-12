@@ -106,7 +106,6 @@ public class UserController {
     @Operation(summary = "按用户主键修改用户头像", description = "需要token验证")
     @Token
     @PostMapping(value = "/update-avatar-by-id")
-    @ResponseBody
     public Result updateAvatarById(@Validated UserUpdateAvatarParam userUpdateAvatarDTO,
                                    BindingResult bindingResult) {
         BindingResultUtil.check(bindingResult);

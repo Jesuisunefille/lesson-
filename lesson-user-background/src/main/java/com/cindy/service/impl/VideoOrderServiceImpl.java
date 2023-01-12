@@ -25,36 +25,10 @@ import java.util.List;
 public class VideoOrderServiceImpl implements VideoOrderService {
 
     @Autowired
-    private UserMapper userMapper;
-
-    @Autowired
     private OrderMapper orderMapper;
 
     @Autowired
     private VideoOrderMapper videoOrderMapper;
-
-    @Override
-    public OrderPageVo pageDetailByUserId(Integer userId, Integer page, Integer size) {
-
-        if (null == userMapper.selectById(userId)) {
-            throw new RuntimeException("用户不存在");
-        }
-
-        // 分页查询VideoOrder记录
-        PageHelper.startPage(page, size);
-        PageInfo<VideoOrder> videoPageInfo = new PageInfo<>(videoOrderMapper.selectDetailByUserId(userId));
-
-        // 组装VO
-        OrderPageVo orderPageVo = new OrderPageVo();
-        orderPageVo.setTotal(videoPageInfo.getTotal());
-        orderPageVo.setPageNum(videoPageInfo.getPageNum());
-        orderPageVo.setPageSize(videoPageInfo.getPageSize());
-        orderPageVo.setPages(videoPageInfo.getPages());
-        orderPageVo.setVideoOrders(videoPageInfo.getList());
-
-        // 返回VO
-        return orderPageVo;
-    }
 
 
     @Transactional(rollbackFor = Exception.class)
