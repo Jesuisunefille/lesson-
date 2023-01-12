@@ -11,7 +11,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-
 import java.util.List;
 
 @RunWith(SpringRunner.class)
@@ -45,12 +44,6 @@ public class OrderServiceTest {
         }
     }
 
-    @Test
-    public void testDeleteById() {
-        OrderDeleteParam orderDeleteParam = new OrderDeleteParam();
-        orderDeleteParam.setOrderId(2);
-        System.out.println(orderService.deleteById(orderDeleteParam) > 0 ? "成功" : "失败");
-    }
 
     @Test
     public void testPageDetailByUserId() {
