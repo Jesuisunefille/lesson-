@@ -46,9 +46,6 @@
 
       </article>
 
-      <!--      <article class="header-foot">-->
-      <!--        <order-list></order-list>-->
-      <!--      </article>-->
 
     </article>
 
@@ -100,7 +97,7 @@ import {computed, onMounted, ref} from "vue";
 import {ossUserAvatar} from "@/global_variable";
 import {ElMessage} from "element-plus";
 
-import OrderList from "@/views/personal/order-list";
+
 
 // data: Vuex实例
 const vuex = useStore();
