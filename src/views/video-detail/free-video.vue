@@ -16,7 +16,8 @@ import {onMounted, defineProps} from "vue";
 let props = defineProps({
   firstEpisodeUrl: {
     type: String,
-    required: true
+    required: true,
+    default: 'default-video.mp4'
   }
 })
 

@@ -5,6 +5,7 @@ import Register from '@/views/personal/register'
 import Login from '@/views/personal/login'
 import Personal from '@/views/personal'
 import Cart from '@/views/cart'
+import Player from '@/views/player'
 
 // 所有组件的路由都在这个数组中配置
 const routes = [
@@ -14,6 +15,7 @@ const routes = [
   {path: '/login', name: 'Login', component: Login},
   {path: '/personal', name: 'Personal', component: Personal},
   {path: '/cart', name: 'Cart', component: Cart},
+  {path: '/player', name: 'Player', component: Player},
   {path: '/banner', name: 'Banner', component: () => import('@/views/welcome/banner')},
   {path: '/video-list', name: 'VideoList', component: () => import('@/views/welcome/video-list')},
   {path: '/common-header', name: 'CommonHeader', component: () => import('@/components/common-header')},
