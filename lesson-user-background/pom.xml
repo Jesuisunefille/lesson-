@@ -73,14 +73,14 @@
             <version>2.1.3</version>
         </dependency>
 
-        <!--mysql-connector-java-->
+        <!--mysql-connector-java(MYSQL驱动包)-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!--druid-->
+        <!--druid(德鲁伊连接池)-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid</artifactId>
