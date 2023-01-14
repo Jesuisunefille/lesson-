@@ -21,7 +21,7 @@ public class BuildUtil {
 
     /**
      * 随机生成UUID
-     *
+     *生成32位随机字符串，包含大小写英文和数字
      * @return 返回随机生成的UUID值
      */
     public static String buildUuid() {
