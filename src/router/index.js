@@ -25,6 +25,7 @@ const routes = [
   {path: '/tab-catalog', name: 'TabCatalog', component: () => import('@/views/video-detail/tab-catalog')},
   {path: '/order-list', name: 'OrderList', component: () => import('@/views/personal/order-list')},
   {path: '/user-update', name: 'UserUpdate', component: () => import('@/views/personal/user-update')},
+  {path: '/login-by-phone', name: 'LoginByPhone', component: () => import('@/views/login-by-phone')},
   {
     path: '/user-update-password',
     name: 'UserUpdatePassword',

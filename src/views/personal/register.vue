@@ -27,17 +27,17 @@
       <el-form-item label="登录账号" prop="username">
 
         <!--控件: 单行文本框-->
-        <!--
-          v-model="registerFormData['username']": 双向绑定表单中的username数据
-        -->
-        <el-input type="text" v-model="registerFormData['username']" placeholder="请输入登录账号.."></el-input>
+        <el-input type="text" placeholder="请输入登录账号.."
+                  v-model="registerFormData['username']"/>
+
       </el-form-item>
 
       <!--表单项: 登录密码-->
       <el-form-item label="登录密码" prop="password">
 
         <!--控件: 单行密码框-->
-        <el-input type="password" v-model="registerFormData['password']" placeholder="请输入登录密码.."></el-input>
+        <el-input type="password" placeholder="请输入登录密码.."
+                  v-model="registerFormData['password']"/>
 
       </el-form-item>
 
@@ -45,7 +45,8 @@
       <el-form-item label="确认密码" prop="confirm">
 
         <!--控件: 单行密码框-->
-        <el-input type="password" v-model="registerFormData['confirm']" placeholder="请输入确认密码.."></el-input>
+        <el-input type="password" placeholder="请输入确认密码.."
+                  v-model="registerFormData['confirm']"/>
 
       </el-form-item>
 
@@ -53,7 +54,8 @@
       <el-form-item label="手机号码" prop="phone">
 
         <!--控件: 单行数字框-->
-        <el-input type="number" v-model="registerFormData['phone']" placeholder="请输入手机号码.."></el-input>
+        <el-input type="number" placeholder="请输入手机号码.."
+                  v-model="registerFormData['phone']"/>
 
       </el-form-item>
 
@@ -61,7 +63,8 @@
       <el-form-item label="真实姓名" prop="realName">
 
         <!--控件: 单行文本框-->
-        <el-input type="text" v-model="registerFormData['realName']" placeholder="请输入真实姓名.."></el-input>
+        <el-input type="text" placeholder="请输入真实姓名.."
+                  v-model="registerFormData['realName']"/>
 
       </el-form-item>
 
@@ -69,21 +72,28 @@
       <el-form-item label="身份证号" prop="idCard">
 
         <!--控件: 单行数字框-->
-        <el-input type="number" v-model="registerFormData['idCard']" placeholder="请输入身份证号.."></el-input>
+        <el-input type="number" placeholder="请输入身份证号.."
+                  v-model="registerFormData['idCard']"/>
 
       </el-form-item>
 
-      <!--按钮: 立刻注册-->
-      <!--
-        @click="register": 点击按钮，触发register方法
-      -->
-      <el-button class="register-btn" type="primary" @click="register">立刻注册</el-button>
+      <!--按钮: 注册新的账号-->
+      <el-button class="register-btn" type="primary"
+                 @click="register">
+        注册新的账号
+      </el-button>
 
-      <!--按钮: 我要登录-->
-      <!--
-        @click="toLogin": 点击按钮，触发register方法
-      -->
-      <el-button class="login-btn" type="warning" @click="toLogin">我要登录</el-button>
+      <!--按钮: 账号密码登录-->
+      <el-button class="login-btn" type="success"
+                 @click="loginByPassword">
+        账号密码登录
+      </el-button>
+
+      <!--按钮: 手机号码登录-->
+      <el-button class="login-btn" type="warning"
+                 @click="loginByPhone">
+        手机号码登录
+      </el-button>
 
     </el-form>
 
@@ -92,6 +102,7 @@
 </template>
 
 <script setup>
+
 import CommonHeader from "@/components/common-header";
 import {USER_REGISTER_API} from '@/api';
 import {reactive, ref, shallowReactive} from "vue";
@@ -152,7 +163,7 @@ let register = () => {
   registerForm.value.validate(valid => {
 
     if (!valid) {
-      ElMessage('校验失败: 请检查表单参数');
+      ElMessage.error('校验失败: 请检查表单参数');
       return false;
     }
 
@@ -165,20 +176,20 @@ let register = () => {
       "id-card": registerFormData.idCard
     }).then(resp => {
           if (resp["data"]["code"] > 0) {
-            ElMessage("注册成功");
+            ElMessage.success("注册成功");
             router.push("/login");
-          } else {
-            ElMessage("注册失败");
-            console.error(resp['data']['message']);
-          }
+          } else ElMessage.error(resp['data']['message']);
         }
     ).catch(e => console.log(e));
 
   });
 }
 
-// method: 用户登录，当点击登录按钮时触发
-let toLogin = () => router.push('/login');
+// method: 账号密码登录，当点击账号密码登录按钮时触发
+let loginByPassword = () => router.push('/login');
+
+// method: 手机号码登录，当点击手机号码登录按钮时触发
+let loginByPhone = () => router.push('/login-by-phone');
 
 </script>
 
@@ -193,7 +204,7 @@ let toLogin = () => router.push('/login');
     margin: 5px auto; // 上下外边距 左右自居中
     width: 100%; // 宽度
   }
-  
+
 }
 
 </style>
