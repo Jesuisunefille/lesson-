@@ -1,4 +1,5 @@
 <template>
+
   <header class="tab-summary-header">
 
     <!--若视频存在摘要图，则展示此容器-->
@@ -9,6 +10,7 @@
         :src="nginxSrc(summaryImage)"：计算视频摘要图的Nginx代理地址
       -->
       <el-image :src="nginxSrc(summaryImage)" class="summary-image"/>
+
     </article>
 
     <!--若视频不存在摘要图，则展示此容器-->

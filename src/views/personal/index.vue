@@ -136,7 +136,7 @@
 import CommonFooter from "@/components/common-footer";
 import CommonHeader from "@/components/common-header";
 import {ossUserAvatar} from "@/global_variable";
-import {USER_DELETE_BY_USER_ID_API, USER_SELECT_BY_USER_ID_API} from "@/api";
+import {USER_DELETE_BY_USER_ID_API, USER_SELECT_BY_USER_ID_API, USER_SELECT_POINTS_BY_USER_ID} from "@/api";
 import router from "@/router";
 import {useStore} from 'vuex';
 import {computed, onMounted, ref} from "vue";
@@ -162,14 +162,10 @@ let getPreviewList = computed(() => src => [ossUserAvatar + src]);
 
 // method: 按 `用户ID` 查询一条 `用户` 记录
 let selectByUserId = async (userId) => {
-  try {
-    const resp = await USER_SELECT_BY_USER_ID_API(userId);
-    if (resp["data"]["code"] > 0) {
-      user.value = resp["data"]["data"];
-    } else console.error(resp["data"]["message"]);
-  } catch (e) {
-    console.error(e)
-  }
+  const resp = await USER_SELECT_BY_USER_ID_API(userId);
+  if (resp["data"]["code"] > 0) {
+    user.value = resp["data"]["data"];
+  } else ElMessage.error(resp["data"]["message"]);
 }
 
 // method: 账号密码登录，当点击账号密码登录按钮时触发
@@ -179,7 +175,7 @@ let loginByPassword = () => router.push('/login');
 let loginByPhone = () => router.push('/login-by-phone');
 
 // method: 修改个人信息，当点击修改个人信息按钮时触发
-let userUpdateInfo = () => router.push('/user-update');
+let userUpdateInfo = () => router.push('/user-update-info');
 
 // method: 修改个人头像，当点击修改个人头像按钮时触发
 let userUpdateAvatar = () => router.push('/user-update-avatar');
@@ -222,16 +218,23 @@ let deleteByUserId = async () => {
 
   // 调用对应API接口
   const resp = await USER_DELETE_BY_USER_ID_API(params);
-  try {
-    if (resp["data"]["code"] > 0) {
-      ElMessage.success("账号注销成功");
-      await logout();
-    } else ElMessage.error(resp["data"]["message"]);
-  } catch (e) {
-    console.log(e)
-  }
+
+  if (resp["data"]["code"] > 0) {
+    ElMessage.success("账号注销成功");
+    await logout();
+  } else ElMessage.error(resp["data"]["message"]);
+
 }
 
+// method: 查询个人积分
+let selectPointsByUserId = async () => {
+  const resp = await USER_SELECT_POINTS_BY_USER_ID(userId);
+  if (resp['data']['code'] > 0) {
+    ElMessage.info('您当前的积分是' + resp['data']['data']);
+  } else {
+    ElMessage.info('您当前的积分是0');
+  }
+}
 
 // mounted: 页面加载完毕后，立刻调用 `selectByUserId()` 方法
 onMounted(() => {
