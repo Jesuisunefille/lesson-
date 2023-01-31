@@ -91,4 +91,10 @@ public class UserServiceTest {
         System.out.println(userService.deleteByUserId(userDeleteParam) > 0 ? "成功" : "失败");
     }
 
+    @Test
+    public void testSelectPointsByUserId(){
+        String points = userService.selectPointsByUserId(13);
+        System.out.println(points);
+    }
+
 }

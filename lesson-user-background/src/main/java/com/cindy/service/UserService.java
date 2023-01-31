@@ -188,4 +188,15 @@ public interface UserService {
      * @return 影响条目数
      */
     int deleteByUserId(UserDeleteParam userDeleteParam);
+
+
+    /**
+     * <h2>根据用户主键查询用户积分</h2>
+     * <p> 01. 使用 `JedisStandaloneUtil` 工具获取一个单机的Jedis连接实例。
+     * <p> 02. 调用 `jedis.get(key)` 获取用户积分。
+     * <p> 03. 调用 `JedisStandaloneUtil.closeJedis(jedis)` 关闭Jedis连接以节省资源。
+     * @param userId User主键
+     * @return 用户积分
+     */
+    String selectPointsByUserId(Integer userId);
 }

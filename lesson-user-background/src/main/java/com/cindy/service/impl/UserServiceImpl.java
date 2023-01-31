@@ -416,4 +416,20 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public String selectPointsByUserId(Integer userId) {
+
+        // 获取一个单机的Jedis连接实例
+        Jedis jedis = JedisStandaloneUtil.getJedis();
+
+        // 获取用户积分，错误直接抛出异常
+        String points = jedis.get("points:user-" + userId);
+
+        // 关闭Jedis连接以节省资源
+        JedisStandaloneUtil.closeJedis(jedis);
+
+        // 返回用户积分
+        return points;
+    }
+
 }

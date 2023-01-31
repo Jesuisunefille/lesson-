@@ -168,5 +168,16 @@ public class UserController {
                 Result.fail(0, "删除失败");
     }
 
+    @ResponseBody
+    @Operation(summary = "按主键查询用户积分", description = "需要token验证")
+    @Token
+    @GetMapping("/select-points-by-user-id")
+    public Result selectPointsByUserId(@Parameter(description = "用户表主键")
+                                       @RequestParam("user-id") Integer userId) {
+        String points = userService.selectPointsByUserId(userId);
+        return null == points ?
+                Result.fail(0, "该用户暂无积分") :
+                Result.ok(points);
+    }
 
 }
